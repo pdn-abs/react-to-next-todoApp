@@ -4,4 +4,36 @@
 	button {
 		font-weight: bold;
 	}
+	div{
+		padding: 5px;
+	}
+	.mainDiv {
+		width: 100%;
+	}
+	.leftDiv {
+		width: 50%;
+		height: 650px;
+		float: left;
+		background: rgb(162, 228, 162);
+	}
+	.rightDiv {
+		margin-left: 50%;
+		height: 650px;
+		background: rgb(163, 163, 230);
+	}
+	.input {
+		padding: 5px;
+	}
+	.todo{
+		font-weight: lighter;
+		font-size: medium;
+	}
+	.todoList{
+		padding-left: 50px;
+		text-align: left;
+		font-weight: bolder;
+		font-size: large;
+    color: rgb(21, 1, 92);
+	}
+
 }
