@@ -9,6 +9,7 @@ const todoManager = {
 			{
 				id: rndString(config.idLength),
 				todo: state.input,
+				completed: false,
 			},
 		];
 	},
