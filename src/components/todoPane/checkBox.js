@@ -1,14 +1,14 @@
 import { React } from 'react';
 
 const CheckBox = (context) => {
-	const { state } = context;
+	const { data } = context;
+	const { completed } = data;
 
 	return (
 		<input
 			type="checkbox"
-			checked={ state.completed }
-			onClick={ (evt) =>
-				context.actions.setTodoStatus(evt.target.value) }
+			checked={ completed }
+			onChange={ () => context.actions.toggleTodo(data) }
 		/>);
 };
 

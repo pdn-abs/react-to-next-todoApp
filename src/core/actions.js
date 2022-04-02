@@ -6,9 +6,13 @@ const setInput = ({ data: input }) => ({
 const addTodo = (context) => ({
 	todoList: TodoManager.addTodo(context),
 });
+const toggleTodo = (context) => ({
+	todoList: TodoManager.toggleTodo(context),
+});
 const actions = {
 	setInput,
 	addTodo,
+	toggleTodo,
 };
 
 export default actions;

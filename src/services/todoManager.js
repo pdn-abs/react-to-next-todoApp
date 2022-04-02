@@ -13,6 +13,19 @@ const todoManager = {
 			},
 		];
 	},
+	toggleTodo: (context) => {
+		const { data, state } = context;
+
+		return (
+			state.todoList.map((todo) => (todo.id !== data.id
+				? todo
+				: {
+					...todo,
+					completed: !data.completed,
+				}
+			))
+		);
+	},
 };
 
 export default todoManager;
