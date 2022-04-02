@@ -26,6 +26,25 @@ const todoManager = {
 			))
 		);
 	},
+	toggleTodoList: (context) => {
+		const { state, data } = context;
+
+		return (
+			state.todoList.map((todo) => (
+				{
+					...todo,
+					completed: data,
+				}
+			))
+		);
+	},
+	isChecked: (context) => {
+		const { state } = context;
+		const unCheckedList = state.todoList.filter((todo) =>
+			todo.completed === false);
+
+		return unCheckedList.length === 0 && state.todoList.length !== 0;
+	},
 };
 
 export default todoManager;
