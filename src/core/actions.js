@@ -4,6 +4,7 @@ const setInput = ({ data: input }) => ({
 	input,
 });
 const addTodo = (context) => ({
+	input: '',
 	todoList: TodoManager.addTodo(context),
 });
 const toggleTodo = (context) => ({
