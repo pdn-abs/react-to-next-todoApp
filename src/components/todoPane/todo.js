@@ -1,5 +1,5 @@
 import { React } from 'react';
-import CheckBox from './checkBox';
+import TodoCheckBox from './todoCheckBox';
 
 const Todo = (context) => {
 	const { data } = context;
@@ -7,7 +7,7 @@ const Todo = (context) => {
 
 	return (
 		<div key={ id } className="todo">
-			<span>{CheckBox(context)}</span>
+			<span>{TodoCheckBox(context)}</span>
 			<span>{todo}</span>
 		</div>
 
