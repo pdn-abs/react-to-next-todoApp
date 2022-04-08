@@ -13,11 +13,15 @@ const toggleTodo = (context) => ({
 const toggleTodoList = (context) => ({
 	todoList: TodoManager.toggleTodoList(context),
 });
+const setFilter = ({ data: filter }) => ({
+	filter,
+});
 const actions = {
 	setInput,
 	addTodo,
 	toggleTodo,
 	toggleTodoList,
+	setFilter,
 };
 
 export default actions;
