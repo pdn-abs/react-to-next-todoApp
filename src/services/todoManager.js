@@ -44,7 +44,7 @@ const isChecked = (context) => {
 	const unCheckedList = state.todoList.filter((todo) =>
 		!todo.completed);
 
-	return unCheckedList.length === 0 && state.todoList.length !== 0;
+	return unCheckedList.length === 0;
 };
 const filters = {
 	all: () => true,
