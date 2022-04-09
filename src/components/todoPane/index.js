@@ -4,7 +4,7 @@ import Input from './input';
 import AddButton from './addButton.js';
 import TodoList from './todoList.js';
 import ToggleAllCheckBox from './toggleAllCheckBox.js';
-import FilterButton from './filterButton';
+import FilterBar from './filterBar.js';
 
 const TodoPane = (context) =>
 	<div className="todoPane" role="TodoPane">
@@ -13,7 +13,7 @@ const TodoPane = (context) =>
 			{AddButton(context)}
 		</div>
 		<div className="todoList">
-			{FilterButton(context)}
+			{FilterBar(context)}
 		</div>
 		<div className="todoList">
 			<span>{ToggleAllCheckBox(context)}</span>
