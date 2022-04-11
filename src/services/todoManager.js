@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { rndString } from '@laufire/utils/random';
 
 const addTodo = (context) => {
@@ -56,15 +55,11 @@ const hasNoTodos = (todos) => {
 		? todos.length
 		: 0;
 
-	console.log(todos);
 	return todosLength === 0;
 };
-const filterTodos = (todos, filter) => {
-	console.log(todos, filter);
-	return hasNoTodos(todos)
-		? []
-		: todos.filter(filters[filter]);
-};
+const filterTodos = (todos, filter) => (hasNoTodos(todos)
+	? []
+	: todos.filter(filters[filter]));
 
 const TodoManager = {
 	addTodo,
