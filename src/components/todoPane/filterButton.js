@@ -1,14 +1,19 @@
 import { React } from 'react';
-import context from '../../core/context';
 import TodoManager from '../../services/todoManager';
 
-const FilterButton = ({ name, label }) =>
-	<button
-		key={ name }
-		disabled={ TodoManager.hasNoTodos(context.state.todoList) }
-		onClick={ () =>
-			context.actions.setFilter(name) }
-	>{label}
-	</button>;
+const FilterButton = (context) => {
+	const { state, data } = context;
+	const { label, name } = data;
+
+	return (
+		<button
+			key={ name }
+			disabled={ TodoManager.hasNoTodos(state.todoList) }
+			onClick={ () => context.actions.setFilter(name) }
+		>
+			{label}
+		</button>
+	);
+};
 
 export default FilterButton;
