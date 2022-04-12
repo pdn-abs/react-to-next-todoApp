@@ -4,6 +4,7 @@ const seed = {
 	todo: '',
 	todoList: [],
 	filter: 'all',
+	editing: null,
 };
 
 export default seed;
