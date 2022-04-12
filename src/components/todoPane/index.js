@@ -1,16 +1,16 @@
 import { React } from 'react';
 import '../../App.scss';
 import Input from './input';
-import AddButton from './addButton.js';
 import TodoList from './todoList.js';
 import ToggleAllCheckBox from './toggleAllCheckBox.js';
 import FilterBar from './filterBar.js';
+import ActionButton from './actionButton';
 
 const TodoPane = (context) =>
 	<div className="todoPane" role="TodoPane">
 		<div className="input">
 			{Input(context)}
-			{AddButton(context)}
+			{ActionButton(context)}
 		</div>
 		<div className="todoList">
 			{FilterBar(context)}
