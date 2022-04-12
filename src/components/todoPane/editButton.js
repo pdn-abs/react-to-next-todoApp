@@ -4,6 +4,6 @@ const editButton = (context) =>
 	<button
 		disabled={ context.state.input === '' }
 	>
-		edit</button>;
+		EDIT</button>;
 
 export default editButton;
