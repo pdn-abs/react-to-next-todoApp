@@ -61,6 +61,17 @@ const filterTodos = (todos, filter) => (hasNoTodos(todos)
 	? []
 	: todos.filter(filters[filter]));
 
+const editTodo = (
+	todos, editing, text
+) =>
+	todos.map((todo) =>
+		(todo.id !== editing.id
+			? todo
+			: {
+				...todo,
+				todo: text,
+			}));
+
 const TodoManager = {
 	addTodo,
 	toggleTodo,
@@ -69,6 +80,7 @@ const TodoManager = {
 	filterTodos,
 	hasNoTodos,
 	filters,
+	editTodo,
 
 };
 
