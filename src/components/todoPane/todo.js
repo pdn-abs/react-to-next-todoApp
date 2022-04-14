@@ -1,4 +1,5 @@
 import { React } from 'react';
+import RemoveButton from './removeButton';
 import TodoCheckBox from './todoCheckBox';
 
 const Todo = (context) => {
@@ -12,8 +13,8 @@ const Todo = (context) => {
 				role="setEditing"
 				onClick={ () => actions.setEditing(data) }
 			>{todo}</span>
+			<span role="removeTodo">{RemoveButton(context)}</span>
 		</div>
-
 	);
 };
 

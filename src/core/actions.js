@@ -28,6 +28,10 @@ const editTodo = ({ state }) => ({
 	editing: null,
 });
 
+const removeTodo = (context) => ({
+	todoList: TodoManager.removeTodo(context),
+});
+
 const actions = {
 	setInput,
 	addTodo,
@@ -36,6 +40,7 @@ const actions = {
 	setFilter,
 	setEditing,
 	editTodo,
+	removeTodo,
 };
 
 export default actions;

@@ -72,6 +72,12 @@ const editTodo = (
 				todo: text,
 			}));
 
+const removeTodo = (context) => {
+	const { state, data } = context;
+	const todos = state.todoList.filter((todo) => todo.id !== data.id);
+
+	return todos;
+};
 const TodoManager = {
 	addTodo,
 	toggleTodo,
@@ -81,7 +87,7 @@ const TodoManager = {
 	hasNoTodos,
 	filters,
 	editTodo,
-
+	removeTodo,
 };
 
 export default TodoManager;
