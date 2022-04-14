@@ -5,6 +5,7 @@ import TodoList from './todoList.js';
 import ToggleAllCheckBox from './toggleAllCheckBox.js';
 import FilterBar from './filterBar.js';
 import ActionButton from './actionButton';
+import ClearCompleted from './clearCompleted';
 
 const TodoPane = (context) =>
 	<div className="todoPane" role="TodoPane">
@@ -21,6 +22,9 @@ const TodoPane = (context) =>
 		</div>
 		<div className="todoList">
 			{TodoList(context)}
+		</div>
+		<div className="todoList">
+			{ClearCompleted(context)}
 		</div>
 	</div>;
 

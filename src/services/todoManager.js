@@ -78,6 +78,10 @@ const removeTodo = (context) => {
 
 	return todos;
 };
+
+const clearCompleted = (todos) =>
+	todos.filter((todo) => !todo.completed);
+
 const TodoManager = {
 	addTodo,
 	toggleTodo,
@@ -88,6 +92,7 @@ const TodoManager = {
 	filters,
 	editTodo,
 	removeTodo,
+	clearCompleted,
 };
 
 export default TodoManager;
