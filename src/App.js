@@ -3,10 +3,11 @@ import './App.scss';
 import TaskPane from './components/taskPane';
 import TodoPane from './components/todoPane';
 import TaskManager from './services/taskManager.js';
+import Ticker from './services/ticker';
 
 const App = (context) => {
 	useEffect(() => TaskManager.init(context), []);
-
+	useEffect(() => Ticker.start(context), []);
 	return <div className="App" role="App">
 		<div className="mainDiv">
 			<div className="leftDiv"><b>TodoPane</b>{TodoPane(context)}</div>
