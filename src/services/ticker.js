@@ -3,10 +3,10 @@ import { rndValue } from '@laufire/utils/random';
 const Ticker = {
 	start: (context) => {
 		const { actions, config } = context;
-		const { taskList } = config;
+		const { tasks } = config;
 
 		return setInterval(() =>
-			actions.addTasks(rndValue(taskList)), config.TickerDelay);
+			actions.addTasks(rndValue(tasks)), config.TickerDelay);
 	},
 };
 

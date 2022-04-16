@@ -10,12 +10,7 @@ const config = {
 	{ label: 'COMPLETED',
 		name: 'completed' }],
 	TickerDelay: milliseconds * seconds,
-	tasks: [{ todo: 'Debug the code',
-		completed: 'false' },
-	{ todo: 'Test the code',
-		completed: 'false' },
-	{ todo: 'Submit the code',
-		completed: 'false' }],
+	tasks: ['Debug the code', 'Test the code', 'Submit the code'],
 };
 
 export default config;
