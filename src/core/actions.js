@@ -34,6 +34,9 @@ const removeTodo = (context) => ({
 const getClearCompleted = ({ state }) => ({
 	todoList: TodoManager.clearCompleted(state.todoList),
 });
+const setTasks = (context) => ({
+	taskList: context.data,
+});
 const addTasks = (context) => ({
 	taskList: TaskManager.AddTask({ ... context, task: context.data }),
 });
@@ -47,6 +50,7 @@ const actions = {
 	editTodo,
 	removeTodo,
 	getClearCompleted,
+	setTasks,
 	addTasks,
 };
 
