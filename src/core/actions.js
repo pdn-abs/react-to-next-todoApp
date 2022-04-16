@@ -35,7 +35,7 @@ const getClearCompleted = ({ state }) => ({
 	todoList: TodoManager.clearCompleted(state.todoList),
 });
 const addTasks = (context) => ({
-	Tasks: TaskManager.AddTask({ ... context, task: context.data }),
+	taskList: TaskManager.AddTask({ ... context, task: context.data }),
 });
 const actions = {
 	setInput,
