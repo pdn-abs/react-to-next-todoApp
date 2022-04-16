@@ -5,6 +5,7 @@ const seed = {
 	todoList: [],
 	filter: 'all',
 	editing: null,
+	taskList: [],
 };
 
 export default seed;
