@@ -4,8 +4,8 @@ import TaskList from './taskList';
 
 const TaskPane = (context) =>
 	<div className="taskPane">
-		<h3>Task</h3>
-		<div>{TaskList(context)}</div>
+		<h4>Tasks</h4>
+		<span>{TaskList(context)}</span>
 	</div>;
 
 export default TaskPane;

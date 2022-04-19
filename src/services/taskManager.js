@@ -13,9 +13,15 @@ const TaskManager = {
 	removeTask: (taskList, data) =>
 		taskList.filter((task) => task.id !== data.id),
 
-	AddTask: (context) =>
-		context.state.taskList.concat(TaskManager.getTask(context)),
+	AddTask: (context) => {
+		const tasks = context.state.taskList;
+		const tasksLength = tasks.length;
+		const maxListLength = 15;
 
+		return tasksLength <= maxListLength
+			? context.state.taskList.concat(TaskManager.getTask(context))
+			: tasks;
+	},
 };
 
 export default TaskManager;
