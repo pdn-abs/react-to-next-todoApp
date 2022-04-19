@@ -82,6 +82,18 @@ const removeTodo = (context) => {
 const clearCompleted = (todos) =>
 	todos.filter((todo) => !todo.completed);
 
+const addTaskToTodo = (context) => {
+	const { state, data } = context;
+
+	return [
+		...state.todoList,
+		{
+			id: data.id,
+			todo: data.todo,
+			completed: false,
+		},
+	];
+};
 const TodoManager = {
 	addTodo,
 	toggleTodo,
@@ -93,6 +105,7 @@ const TodoManager = {
 	editTodo,
 	removeTodo,
 	clearCompleted,
+	addTaskToTodo,
 };
 
 export default TodoManager;

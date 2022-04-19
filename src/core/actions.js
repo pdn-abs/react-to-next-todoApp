@@ -40,6 +40,9 @@ const setTasks = (context) => ({
 const addTasks = (context) => ({
 	taskList: TaskManager.AddTask({ ... context, task: context.data }),
 });
+const addTaskToTodo = (context) => ({
+	todoList: TodoManager.addTaskToTodo(context),
+});
 const actions = {
 	setInput,
 	addTodo,
@@ -52,6 +55,7 @@ const actions = {
 	getClearCompleted,
 	setTasks,
 	addTasks,
+	addTaskToTodo,
 };
 
 export default actions;
