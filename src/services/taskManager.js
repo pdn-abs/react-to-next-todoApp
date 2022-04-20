@@ -10,8 +10,11 @@ const TaskManager = {
 		context.actions.setTasks(context.config.tasks.map((task) =>
 			TaskManager.getTask({ ...context, data: task })),),
 
-	removeTask: (taskList, data) =>
-		taskList.filter((task) => task.id !== data.id),
+	removeTask: (context) => {
+		const { state, data } = context;
+
+		return state.taskList.filter((task) => task.id !== data.id);
+	},
 
 	AddTask: (context) => {
 		const tasks = context.state.taskList;
