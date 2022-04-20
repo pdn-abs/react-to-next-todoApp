@@ -1,5 +1,4 @@
 import { React } from 'react';
-import '../../App.scss';
 import Input from './input';
 import TodoList from './todoList.js';
 import ToggleAllCheckBox from './toggleAllCheckBox.js';
