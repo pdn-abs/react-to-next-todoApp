@@ -3,7 +3,7 @@ import TodoManager from '../../services/todoManager';
 
 const ToggleAllCheckBox = (context) => {
 	const { state, actions } = context;
-	const selectAll = TodoManager.isChecked(context);
+	const selectAll = TodoManager.isAllChecked(context);
 	const noTodos = TodoManager.hasNoTodos(state.todoList);
 
 	return (
