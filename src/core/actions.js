@@ -20,10 +20,8 @@ const setEditing = ({ data }) => ({
 	editing: data,
 	input: data.todo,
 });
-const editTodo = ({ state }) => ({
-	todoList: TodoManager.editTodo(
-		state.todoList, state.editing, state.input
-	),
+const editTodo = (context) => ({
+	todoList: TodoManager.editTodo(context),
 	input: '',
 	editing: null,
 });
@@ -31,14 +29,14 @@ const editTodo = ({ state }) => ({
 const removeTodo = (context) => ({
 	todoList: TodoManager.removeTodo(context),
 });
-const getClearCompleted = ({ state }) => ({
-	todoList: TodoManager.clearCompleted(state.todoList),
+const getClearCompleted = (context) => ({
+	todoList: TodoManager.clearCompleted(context),
 });
 const setTasks = (context) => ({
 	taskList: context.data,
 });
 const addTasks = (context) => ({
-	taskList: TaskManager.AddTask({ ... context, task: context.data }),
+	taskList: TaskManager.AddTask(context),
 });
 const addTaskToTodo = (context) => ({
 	todoList: TodoManager.addTaskToTodo(context),
