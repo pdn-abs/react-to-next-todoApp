@@ -41,6 +41,13 @@ const TodoManager = {
 			))
 		);
 	},
+	hasNoTodos: (todos) => {
+		const todosLength = todos !== undefined
+			? todos.length
+			: 0;
+
+		return todosLength === 0;
+	},
 	isAllChecked: (context) => {
 		const { todoList } = context.state;
 		const unCheckedList = todoList.filter((todo) =>
@@ -49,17 +56,17 @@ const TodoManager = {
 
 		return unCheckedList.length === 0 && !noTodos;
 	},
+	hasCompletedTodo: (context) => {
+		const { todoList } = context.state;
+		const checkedList = todoList.filter((todo) => todo.completed);
+		const noTodos = TodoManager.hasNoTodos(todoList);
+
+		return checkedList.length > 0 && !noTodos;
+	},
 	filters: {
 		all: () => true,
 		active: (todo) => !todo.completed,
 		completed: (todo) => todo.completed,
-	},
-	hasNoTodos: (todos) => {
-		const todosLength = todos !== undefined
-			? todos.length
-			: 0;
-
-		return todosLength === 0;
 	},
 	filterTodos: (todos, filter) => (TodoManager.hasNoTodos(todos)
 		? []
