@@ -1,5 +1,4 @@
 import { React } from 'react';
-import '../../App.scss';
 import TaskList from './taskList';
 
 const TaskPane = (context) =>
