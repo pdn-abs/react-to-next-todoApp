@@ -5,7 +5,7 @@ const clearCompleted = (context) =>
 	<button
 		role="clearCompleted"
 		disabled={ !TodoManager.hasCompletedTodo(context) }
-		onClick={ () =>	context.actions.getClearCompleted(context.state) }
+		onClick={ () =>	context.actions.getClearCompleted() }
 	>Clear Completed
 	</button>;
 
