@@ -41,9 +41,10 @@ const TodoManager = {
 			))
 		);
 	},
-	hasNoTodos: (todos) => {
-		const todosLength = todos !== undefined
-			? todos.length
+	hasNoTodos: (context) => {
+		const { todoList } = context.state;
+		const todosLength = todoList !== undefined
+			? todoList.length
 			: 0;
 
 		return todosLength === 0;
@@ -52,14 +53,14 @@ const TodoManager = {
 		const { todoList } = context.state;
 		const unCheckedList = todoList.filter((todo) =>
 			!todo.completed);
-		const noTodos = TodoManager.hasNoTodos(todoList);
+		const noTodos = TodoManager.hasNoTodos(context);
 
 		return unCheckedList.length === 0 && !noTodos;
 	},
 	hasCompletedTodo: (context) => {
 		const { todoList } = context.state;
 		const checkedList = todoList.filter((todo) => todo.completed);
-		const noTodos = TodoManager.hasNoTodos(todoList);
+		const noTodos = TodoManager.hasNoTodos(context);
 
 		return checkedList.length > 0 && !noTodos;
 	},
@@ -68,10 +69,13 @@ const TodoManager = {
 		active: (todo) => !todo.completed,
 		completed: (todo) => todo.completed,
 	},
-	filterTodos: (todos, filter) => (TodoManager.hasNoTodos(todos)
-		? []
-		: todos.filter(TodoManager.filters[filter])),
+	filterTodos: (context) => {
+		const { todoList, filter } = context.state;
 
+		return TodoManager.hasNoTodos(context)
+			? []
+			: todoList.filter(TodoManager.filters[filter]);
+	},
 	editTodo: (context) => {
 		const { todoList, editing, input } = context.state;
 

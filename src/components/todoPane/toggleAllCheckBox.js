@@ -2,9 +2,9 @@ import { React } from 'react';
 import TodoManager from '../../services/todoManager';
 
 const ToggleAllCheckBox = (context) => {
-	const { state, actions } = context;
+	const { actions } = context;
 	const selectAll = TodoManager.isAllChecked(context);
-	const noTodos = TodoManager.hasNoTodos(state.todoList);
+	const noTodos = TodoManager.hasNoTodos(context);
 
 	return (
 		<input
