@@ -41,18 +41,11 @@ const TodoManager = {
 			))
 		);
 	},
-	hasNoTodos: (context) => {
-		const { todoList } = context.state;
-		const todosLength = todoList !== undefined
-			? todoList.length
-			: 0;
+	hasNoTodos: (context) => context.state.todoList.length === 0,
 
-		return todosLength === 0;
-	},
 	isAllChecked: (context) => {
 		const { todoList } = context.state;
-		const unCheckedList = todoList.filter((todo) =>
-			!todo.completed);
+		const unCheckedList = todoList.filter((todo) => !todo.completed);
 		const noTodos = TodoManager.hasNoTodos(context);
 
 		return unCheckedList.length === 0 && !noTodos;
