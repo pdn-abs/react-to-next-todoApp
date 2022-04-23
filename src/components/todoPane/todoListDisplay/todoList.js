@@ -1,5 +1,5 @@
 import Todo from './todo';
-import TodoManager from '../../services/todoManager';
+import TodoManager from '../../../services/todoManager';
 
 const TodoList = (context) => {
 	const { state } = context;

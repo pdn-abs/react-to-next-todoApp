@@ -1,6 +1,6 @@
 import { React } from 'react';
 import Input from './userInputs/input';
-import TodoList from './todoList.js';
+import TodoList from './todoListDisplay/todoList.js';
 import ToggleAllCheckBox from './toggleAllCheckBox.js';
 import FilterBar from './filterBar.js';
 import ActionButton from './userInputs/actionButton';
