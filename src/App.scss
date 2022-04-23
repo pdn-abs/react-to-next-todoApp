@@ -28,12 +28,16 @@
 		font-weight: lighter;
 		font-size: medium;
 	}
-	.todoList{
+	.todoList {
 		padding-left: 50px;
 		text-align: left;
 		font-weight: bolder;
 		font-size: large;
     color: rgb(21, 1, 92);
+	}
+	.taskPane {
+		padding-left: 80px;
+		text-align: left;
 	}
 
 }

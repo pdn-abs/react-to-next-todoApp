@@ -6,9 +6,9 @@ const Task = (context) => {
 	const { data: { id, todo }} = context;
 
 	return	<div	key={ id }	role="Task">
-		<span>{AddButton(context)}</span>
 		<span>{ todo }</span>
-		<span>{RemoveButton(context)}</span>
+		<span className="input">{AddButton(context)}</span>
+		<span className="input">{RemoveButton(context)}</span>
 	</div>;
 };
 
