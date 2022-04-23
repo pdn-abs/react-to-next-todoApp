@@ -9,9 +9,10 @@ const UserInputs = (context) =>
 			{Input(context)}
 			{ActionButton(context)}
 		</div>
-		<div className="filter">
+		<div><br/>
 			{FilterBar(context)}
 		</div>
+		<br/>
 	</div>;
 
 export default UserInputs;

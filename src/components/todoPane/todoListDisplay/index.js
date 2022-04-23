@@ -5,8 +5,8 @@ import ClearCompleted from './clearCompleted';
 
 const TodoListDisplay = (context) =>
 	<div className="todoList" role="TodoListDisplay">
-		<span>{ToggleAllCheckBox(context)}</span>
-		<u>Todo List</u>
+		<div>{ToggleAllCheckBox(context)}<u>Todo List</u>
+		</div>
 		<div>
 			{TodoList(context)}
 		</div>
