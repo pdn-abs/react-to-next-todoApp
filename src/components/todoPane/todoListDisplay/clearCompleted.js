@@ -1,5 +1,5 @@
 import { React } from 'react';
-import TodoManager from '../../services/todoManager';
+import TodoManager from '../../../services/todoManager';
 
 const clearCompleted = (context) =>
 	<button
