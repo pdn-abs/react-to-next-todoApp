@@ -1,9 +1,9 @@
 import { React } from 'react';
-import Input from './input';
+import Input from './userInputs/input';
 import TodoList from './todoList.js';
 import ToggleAllCheckBox from './toggleAllCheckBox.js';
 import FilterBar from './filterBar.js';
-import ActionButton from './actionButton';
+import ActionButton from './userInputs/actionButton';
 import ClearCompleted from './clearCompleted';
 
 const TodoPane = (context) =>
