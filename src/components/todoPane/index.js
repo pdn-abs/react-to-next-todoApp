@@ -1,30 +1,11 @@
 import { React } from 'react';
-import Input from './userInputs/input';
-import TodoList from './todoListDisplay/todoList.js';
-import ToggleAllCheckBox from './toggleAllCheckBox.js';
-import FilterBar from './filterBar.js';
-import ActionButton from './userInputs/actionButton';
-import ClearCompleted from './clearCompleted';
+import TodoListDisplay from './todoListDisplay';
+import UserInputs from './userInputs';
 
 const TodoPane = (context) =>
 	<div className="todoPane" role="TodoPane">
-		<div className="input">
-			{Input(context)}
-			{ActionButton(context)}
-		</div>
-		<div className="todoList">
-			{FilterBar(context)}
-		</div>
-		<div className="todoList">
-			<span>{ToggleAllCheckBox(context)}</span>
-			<u>Todo List</u>
-		</div>
-		<div className="todoList">
-			{TodoList(context)}
-		</div>
-		<div className="todoList">
-			{ClearCompleted(context)}
-		</div>
+		<span>{UserInputs(context)}</span>
+		<span>{TodoListDisplay(context)}</span>
 	</div>;
 
 export default TodoPane;
