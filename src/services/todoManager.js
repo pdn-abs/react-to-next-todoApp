@@ -46,16 +46,14 @@ const TodoManager = {
 	isAllChecked: (context) => {
 		const { todoList } = context.state;
 		const unCheckedList = todoList.filter((todo) => !todo.completed);
-		const noTodos = TodoManager.hasNoTodos(context);
 
-		return unCheckedList.length === 0 && !noTodos;
+		return unCheckedList.length === 0;
 	},
 	hasCompletedTodo: (context) => {
 		const { todoList } = context.state;
 		const checkedList = todoList.filter((todo) => todo.completed);
-		const noTodos = TodoManager.hasNoTodos(context);
 
-		return checkedList.length > 0 && !noTodos;
+		return checkedList.length > 0;
 	},
 	filters: {
 		all: () => true,
