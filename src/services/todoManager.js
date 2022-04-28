@@ -63,9 +63,7 @@ const TodoManager = {
 	filterTodos: (context) => {
 		const { todoList, filter } = context.state;
 
-		return TodoManager.hasNoTodos(context)
-			? []
-			: todoList.filter(TodoManager.filters[filter]);
+		return todoList.filter(TodoManager.filters[filter]);
 	},
 	editTodo: (context) => {
 		const { todoList, editing, input } = context.state;
