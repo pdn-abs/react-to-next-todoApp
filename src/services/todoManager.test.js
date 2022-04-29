@@ -2,7 +2,8 @@ import TodoManager from './todoManager.js';
 describe('todoManager', () => {
 	const { addTodo, toggleTodo, toggleTodoList,
 		hasNoTodos, isAllChecked, hasCompletedTodo,
-		filters, filterTodos, editTodo, removeTodo } = TodoManager;
+		filters, filterTodos, editTodo, removeTodo,
+		clearCompleted } = TodoManager;
 
 	test('Add Todo - adds the given todo', () => {
 		const context = {
@@ -249,5 +250,19 @@ describe('todoManager', () => {
 
 		expect(result).toEqual([{ id: 'MFMULLYR',
 			todo: 'Submit the Code' }]);
+	});
+	test('Clear Completed Todos', () => {
+		const context = {
+			state: { todoList: [
+				{ completed: false },
+				{ completed: false },
+				{ completed: true },
+				{ completed: true },
+			] },
+		};
+		const result = clearCompleted(context);
+
+		expect(result).toEqual([{ completed: false },
+			{ completed: false }]);
 	});
 });
