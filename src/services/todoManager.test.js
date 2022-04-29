@@ -2,7 +2,7 @@
 import TodoManager from './todoManager.js';
 describe('todoManager', () => {
 	const { addTodo, toggleTodo, toggleTodoList,
-		hasNoTodos } = TodoManager;
+		hasNoTodos, isAllChecked } = TodoManager;
 
 	test('Add Todo - adds the given todo', () => {
 		const context = {
@@ -106,6 +106,27 @@ describe('todoManager', () => {
 
 			};
 			const result = hasNoTodos(context);
+
+			expect(result).toEqual(false);
+		});
+	});
+	describe('Is All Checked ', () => {
+		test('Is All Checked - All Todos Selected', () => {
+			const context = {
+				state: { todoList: [{ completed: true },
+					{ completed: true }] },
+			};
+			const result = isAllChecked(context);
+
+			expect(result).toEqual(true);
+		});
+		test('Is All Checked - Not All Todos Selected', () => {
+			const context = {
+				state: { todoList: [{ completed: true },
+					{ completed: false }] },
+
+			};
+			const result = isAllChecked(context);
 
 			expect(result).toEqual(false);
 		});
