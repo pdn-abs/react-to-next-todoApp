@@ -1,7 +1,8 @@
 /* eslint-disable no-empty-pattern */
 import TodoManager from './todoManager.js';
 describe('todoManager', () => {
-	const { addTodo, toggleTodo, toggleTodoList } = TodoManager;
+	const { addTodo, toggleTodo, toggleTodoList,
+		hasNoTodos } = TodoManager;
 
 	test('Add Todo - adds the given todo', () => {
 		const context = {
@@ -83,6 +84,30 @@ describe('todoManager', () => {
 			{ id: 'LFMUHLYR',
 				todo: 'Debug the Code',
 				completed: false }]);
+		});
+	});
+	describe('Has No Todos', () => {
+		test('Has No Todos - TodoList Empty', () => {
+			const context = {
+				state: { todoList: [] },
+			};
+			const result = hasNoTodos(context);
+
+			expect(result).toEqual(true);
+		});
+		test('Has No Todos - TodoList has todos', () => {
+			const context = {
+				state: { todoList: [{ id: 'MFMULLYR',
+					todo: 'Submit the Code',
+					completed: false },
+				{ id: 'LFMUHLYR',
+					todo: 'Debug the Code',
+					completed: false }] },
+
+			};
+			const result = hasNoTodos(context);
+
+			expect(result).toEqual(false);
 		});
 	});
 });
