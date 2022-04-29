@@ -3,7 +3,7 @@ import TodoManager from './todoManager.js';
 describe('todoManager', () => {
 	const { addTodo, toggleTodo, toggleTodoList,
 		hasNoTodos, isAllChecked, hasCompletedTodo,
-		filters, filterTodos } = TodoManager;
+		filters, filterTodos, editTodo } = TodoManager;
 
 	test('Add Todo - adds the given todo', () => {
 		const context = {
@@ -224,5 +224,17 @@ describe('todoManager', () => {
 			expect(result).toEqual([{ completed: true },
 				{ completed: true }]);
 		});
+	});
+	test('Edit Todo ', () => {
+		const context = {
+			state: { todoList: [{ id: 'MFMULLYR',
+				todo: 'Submit the Code' }],
+			editing: { id: 'MFMULLYR', todo: 'Submit the Code' },
+			input: 'Commit the code' },
+		};
+		const result = editTodo(context);
+
+		expect(result).toEqual([{ id: 'MFMULLYR',
+			todo: 'Commit the code' }]);
 	});
 });
