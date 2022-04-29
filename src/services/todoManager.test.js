@@ -1,7 +1,7 @@
 /* eslint-disable no-empty-pattern */
 import TodoManager from './todoManager.js';
 describe('todoManager', () => {
-	const { addTodo, toggleTodo } = TodoManager;
+	const { addTodo, toggleTodo, toggleTodoList } = TodoManager;
 
 	test('Add Todo - adds the given todo', () => {
 		const context = {
@@ -42,5 +42,47 @@ describe('todoManager', () => {
 		{ id: 'LFMUHLYR',
 			todo: 'Debug the Code',
 			completed: true }]);
+	});
+	describe('Toggle TodoList', () => {
+		test('Toggle TodoList-data is true', () => {
+			const context = {
+				state: { todoList: [{ id: 'MFMULLYR',
+					todo: 'Submit the Code',
+					completed: false },
+				{ id: 'LFMUHLYR',
+					todo: 'Debug the Code',
+					completed: false }] },
+				data: true,
+
+			};
+			const result = toggleTodoList(context);
+
+			expect(result).toEqual([{ id: 'MFMULLYR',
+				todo: 'Submit the Code',
+				completed: true },
+			{ id: 'LFMUHLYR',
+				todo: 'Debug the Code',
+				completed: true }]);
+		});
+		test('Toggle TodoList-data is false', () => {
+			const context = {
+				state: { todoList: [{ id: 'MFMULLYR',
+					todo: 'Submit the Code',
+					completed: true },
+				{ id: 'LFMUHLYR',
+					todo: 'Debug the Code',
+					completed: true }] },
+				data: false,
+
+			};
+			const result = toggleTodoList(context);
+
+			expect(result).toEqual([{ id: 'MFMULLYR',
+				todo: 'Submit the Code',
+				completed: false },
+			{ id: 'LFMUHLYR',
+				todo: 'Debug the Code',
+				completed: false }]);
+		});
 	});
 });
