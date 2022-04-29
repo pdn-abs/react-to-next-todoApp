@@ -2,7 +2,8 @@
 import TodoManager from './todoManager.js';
 describe('todoManager', () => {
 	const { addTodo, toggleTodo, toggleTodoList,
-		hasNoTodos, isAllChecked, hasCompletedTodo, filters } = TodoManager;
+		hasNoTodos, isAllChecked, hasCompletedTodo,
+		filters, filterTodos } = TodoManager;
 
 	test('Add Todo - adds the given todo', () => {
 		const context = {
@@ -169,6 +170,59 @@ describe('todoManager', () => {
 			const result = filters.completed(todo);
 
 			expect(result).toEqual(true);
+		});
+	});
+	describe('Filter Todos', () => {
+		test('Filter Todos - when Filter - All button clicked', () => {
+			const context = {
+				state: { todoList: [
+					{ completed: false },
+					{ completed: false },
+					{ completed: true },
+					{ completed: true },
+				],
+				filter: 'all' },
+			};
+			const result = filterTodos(context);
+
+			expect(result).toEqual([
+				{ completed: false },
+				{ completed: false },
+				{ completed: true },
+				{ completed: true },
+			]);
+		});
+		test('Filter Todos - when Filter - Active button clicked', () => {
+			const context = {
+				state: { todoList: [
+					{ completed: false },
+					{ completed: false },
+					{ completed: true },
+					{ completed: true },
+				],
+				filter: 'active' },
+
+			};
+			const result = filterTodos(context);
+
+			expect(result).toEqual([{ completed: false },
+				{ completed: false }]);
+		});
+		test('Filter Todos - when Filter - Completed button clicked', () => {
+			const context = {
+				state: { todoList: [
+					{ completed: false },
+					{ completed: false },
+					{ completed: true },
+					{ completed: true },
+				],
+				filter: 'completed' },
+
+			};
+			const result = filterTodos(context);
+
+			expect(result).toEqual([{ completed: true },
+				{ completed: true }]);
 		});
 	});
 });
