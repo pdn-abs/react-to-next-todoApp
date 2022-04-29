@@ -3,7 +3,7 @@ describe('todoManager', () => {
 	const { addTodo, toggleTodo, toggleTodoList,
 		hasNoTodos, isAllChecked, hasCompletedTodo,
 		filters, filterTodos, editTodo, removeTodo,
-		clearCompleted } = TodoManager;
+		clearCompleted, addTaskToTodo } = TodoManager;
 
 	test('Add Todo - adds the given todo', () => {
 		const context = {
@@ -264,5 +264,23 @@ describe('todoManager', () => {
 
 		expect(result).toEqual([{ completed: false },
 			{ completed: false }]);
+	});
+	test('Add Todo - adds the given todo', () => {
+		const context = {
+			state: { todoList: [{ id: 'MFMULLYR',
+				todo: 'Submit the Code',
+				completed: false }] },
+			data: { id: 'LFMUHLYR',
+				todo: 'Debug the Code' },
+
+		};
+		const result = addTaskToTodo(context);
+
+		expect(result).toEqual([{ id: 'MFMULLYR',
+			todo: 'Submit the Code',
+			completed: false },
+		{ id: 'LFMUHLYR',
+			todo: 'Debug the Code',
+			completed: false }]);
 	});
 });
