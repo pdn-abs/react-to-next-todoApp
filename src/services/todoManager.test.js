@@ -1,9 +1,8 @@
-/* eslint-disable no-empty-pattern */
 import TodoManager from './todoManager.js';
 describe('todoManager', () => {
 	const { addTodo, toggleTodo, toggleTodoList,
 		hasNoTodos, isAllChecked, hasCompletedTodo,
-		filters, filterTodos, editTodo } = TodoManager;
+		filters, filterTodos, editTodo, removeTodo } = TodoManager;
 
 	test('Add Todo - adds the given todo', () => {
 		const context = {
@@ -236,5 +235,19 @@ describe('todoManager', () => {
 
 		expect(result).toEqual([{ id: 'MFMULLYR',
 			todo: 'Commit the code' }]);
+	});
+	test('Remove Todo ', () => {
+		const context = {
+			data: { id: 'LFMUHLYR' },
+			state: { todoList: [{ id: 'MFMULLYR',
+				todo: 'Submit the Code' },
+			{ id: 'LFMUHLYR',
+				todo: 'Debug the Code' }] },
+
+		};
+		const result = removeTodo(context);
+
+		expect(result).toEqual([{ id: 'MFMULLYR',
+			todo: 'Submit the Code' }]);
 	});
 });
