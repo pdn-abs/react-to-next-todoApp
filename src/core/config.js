@@ -11,6 +11,7 @@ const config = {
 		name: 'completed' }],
 	TickerDelay: milliseconds * seconds,
 	tasks: ['Debug the code', 'Test the code', 'Submit the code'],
+	maxTaskListLength: 15,
 };
 
 export default config;
