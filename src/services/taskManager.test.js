@@ -25,7 +25,7 @@ describe('taskManager', () => {
 	describe('Addtask ', () => {
 		test('AddTask -TaskList length is less than MaxTaskListLength', () => {
 			const context = {
-				config: { idLength: 8, maxTaskListLength: 15 },
+				config: { idLength: 8, maxTaskListLength: 5 },
 				data: 'Test the code',
 				state: {
 					taskList: [{ id: 'MFMULLYR', todo: 'Debug the code' }],

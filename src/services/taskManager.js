@@ -19,14 +19,11 @@ const TaskManager = {
 	},
 
 	AddTask: (context) => {
-		const { config } = context;
-		const tasks = context.state.taskList;
-		const tasksLength = tasks.length;
-		const maxListLength = config.maxTaskListLength;
+		const { config: { maxTaskListLength }, state: { taskList }} = context;
 
-		return tasksLength <= maxListLength
+		return taskList.length <= maxTaskListLength
 			? context.state.taskList.concat(TaskManager.getTask(context))
-			: tasks;
+			: taskList;
 	},
 };
 
