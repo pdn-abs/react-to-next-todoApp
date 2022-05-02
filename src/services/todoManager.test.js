@@ -11,7 +11,7 @@ describe('todoManager', () => {
 				todo: 'Submit the Code',
 				completed: false }],
 			input: 'Debug the Code' },
-			config: { idLength: 4 },
+			config: { idLength: 8 },
 
 		};
 		const result = addTodo(context);
@@ -265,7 +265,7 @@ describe('todoManager', () => {
 		expect(result).toEqual([{ completed: false },
 			{ completed: false }]);
 	});
-	test('Add Todo - adds the given todo', () => {
+	test('AddTaskToTodo - adds the selected task to todoList', () => {
 		const context = {
 			state: { todoList: [{ id: 'MFMULLYR',
 				todo: 'Submit the Code',
