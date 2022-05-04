@@ -2,7 +2,8 @@ import actions from './actions';
 import TodoManager from '../services/todoManager';
 
 describe('actions', () => {
-	const { setInput, addTodo, toggleTodo, toggleTodoList } = actions;
+	const { setInput, addTodo, toggleTodo, toggleTodoList,
+		setFilter } = actions;
 	const context = Symbol('context');
 
 	test('SetInput- sets the given input', () => {
@@ -46,5 +47,11 @@ describe('actions', () => {
 		expect(TodoManager.toggleTodoList)
 			.toHaveBeenCalledWith(context);
 		expect(result).toEqual(expectation);
+	});
+	test('SetFilter - sets a particular filter', () => {
+		const data = Symbol('filter') ;
+		const result = setFilter({ data });
+
+		expect(result).toEqual({ filter: data });
 	});
 });
