@@ -2,7 +2,7 @@ import actions from './actions';
 import TodoManager from '../services/todoManager';
 
 describe('actions', () => {
-	const { setInput, addTodo, toggleTodo } = actions;
+	const { setInput, addTodo, toggleTodo, toggleTodoList } = actions;
 	const context = Symbol('context');
 
 	test('SetInput- sets the given input', () => {
@@ -32,6 +32,19 @@ describe('actions', () => {
 		const result = toggleTodo(context);
 
 		expect(TodoManager.toggleTodo).toHaveBeenCalledWith(context);
+		expect(result).toEqual(expectation);
+	});
+	test('ToggleTodoList - toggles all the todos', () => {
+		const toggledAllTodos = Symbol('toggledAllTodos');
+
+		jest.spyOn(TodoManager, 'toggleTodoList')
+			.mockReturnValue(toggledAllTodos);
+
+		const expectation = { todoList: toggledAllTodos };
+		const result = toggleTodoList(context);
+
+		expect(TodoManager.toggleTodoList)
+			.toHaveBeenCalledWith(context);
 		expect(result).toEqual(expectation);
 	});
 });
