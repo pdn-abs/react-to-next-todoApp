@@ -3,7 +3,7 @@ import TodoManager from '../services/todoManager';
 
 describe('actions', () => {
 	const { setInput, addTodo, toggleTodo, toggleTodoList,
-		setFilter } = actions;
+		setFilter, setEditing } = actions;
 	const context = Symbol('context');
 
 	test('SetInput- sets the given input', () => {
@@ -53,5 +53,11 @@ describe('actions', () => {
 		const result = setFilter({ data });
 
 		expect(result).toEqual({ filter: data });
+	});
+	test('SetEditing - sets the editing', () => {
+		const data = Symbol('data') ;
+		const result = setEditing({ data });
+
+		expect(result).toEqual({ editing: data, input: data.todo });
 	});
 });
