@@ -3,8 +3,10 @@ import TodoManager from '../services/todoManager';
 
 describe('actions', () => {
 	const { setInput, addTodo, toggleTodo, toggleTodoList,
-		setFilter, setEditing, editTodo, removeTodo } = actions;
+		setFilter, setEditing, editTodo, removeTodo,
+		getClearCompleted } = actions;
 	const context = Symbol('context');
+	const todoList = Symbol('todoList');
 
 	test('setInput- sets the given input', () => {
 		const data = Symbol('input') ;
@@ -13,11 +15,9 @@ describe('actions', () => {
 		expect(result).toEqual({ input: data });
 	});
 	test('addTodo- Adds the given to TodoList', () => {
-		const addedTodo = Symbol('addedTodo');
+		jest.spyOn(TodoManager, 'addTodo').mockReturnValue(todoList);
 
-		jest.spyOn(TodoManager, 'addTodo').mockReturnValue(addedTodo);
-
-		const expectation = { input: '', todoList: addedTodo };
+		const expectation = { input: '', todoList: todoList };
 		const result = addTodo(context);
 
 		expect(TodoManager.addTodo)
@@ -25,23 +25,19 @@ describe('actions', () => {
 		expect(result).toEqual(expectation);
 	});
 	test('toggleTodo - toggles the todo', () => {
-		const toggledTodo = Symbol('toggledTodo');
+		jest.spyOn(TodoManager, 'toggleTodo').mockReturnValue(todoList);
 
-		jest.spyOn(TodoManager, 'toggleTodo').mockReturnValue(toggledTodo);
-
-		const expectation = { todoList: toggledTodo };
+		const expectation = { todoList };
 		const result = toggleTodo(context);
 
 		expect(TodoManager.toggleTodo).toHaveBeenCalledWith(context);
 		expect(result).toEqual(expectation);
 	});
 	test('toggleTodoList - toggles all the todos', () => {
-		const toggledAllTodos = Symbol('toggledAllTodos');
-
 		jest.spyOn(TodoManager, 'toggleTodoList')
-			.mockReturnValue(toggledAllTodos);
+			.mockReturnValue(todoList);
 
-		const expectation = { todoList: toggledAllTodos };
+		const expectation = { todoList };
 		const result = toggleTodoList(context);
 
 		expect(TodoManager.toggleTodoList)
@@ -61,11 +57,9 @@ describe('actions', () => {
 		expect(result).toEqual({ editing: data, input: data.todo });
 	});
 	test('edit Todo - edits the Todo ', () => {
-		const editedTodo = Symbol('editedTodo');
+		jest.spyOn(TodoManager, 'editTodo').mockReturnValue(todoList);
 
-		jest.spyOn(TodoManager, 'editTodo').mockReturnValue(editedTodo);
-
-		const expectation = { todoList: editedTodo, input: '', editing: null };
+		const expectation = { todoList: todoList, input: '', editing: null };
 		const result = editTodo(context);
 
 		expect(TodoManager.editTodo)
@@ -73,14 +67,23 @@ describe('actions', () => {
 		expect(result).toEqual(expectation);
 	});
 	test('removeTodo - removes the given todo', () => {
-		const removedTodo = Symbol('removedTodo');
+		jest.spyOn(TodoManager, 'removeTodo').mockReturnValue(todoList);
 
-		jest.spyOn(TodoManager, 'removeTodo').mockReturnValue(removedTodo);
-
-		const expectation = { todoList: removedTodo };
+		const expectation = { todoList };
 		const result = removeTodo(context);
 
 		expect(TodoManager.removeTodo).toHaveBeenCalledWith(context);
+		expect(result).toEqual(expectation);
+	});
+	test('getClearCompleted - removes all the Completed todos', () => {
+		jest.spyOn(TodoManager, 'clearCompleted')
+			.mockReturnValue(todoList);
+
+		const expectation = { todoList };
+		const result = getClearCompleted(context);
+
+		expect(TodoManager.clearCompleted)
+			.toHaveBeenCalledWith(context);
 		expect(result).toEqual(expectation);
 	});
 });
