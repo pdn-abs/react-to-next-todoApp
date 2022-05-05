@@ -5,7 +5,8 @@ import TaskManager from '../services/taskManager';
 describe('actions', () => {
 	const { setInput, addTodo, toggleTodo, toggleTodoList,
 		setFilter, setEditing, editTodo, removeTodo,
-		getClearCompleted, setTasks, addTasks, addTaskToTodo } = actions;
+		getClearCompleted, setTasks, addTasks,
+		addTaskToTodo, removeTask } = actions;
 	const context = Symbol('context');
 	const todoList = Symbol('todoList');
 	const taskList = Symbol('taskList');
@@ -112,6 +113,16 @@ describe('actions', () => {
 		const result = addTaskToTodo(context);
 
 		expect(TodoManager.addTaskToTodo)
+			.toHaveBeenCalledWith(context);
+		expect(result).toEqual(expectation);
+	});
+	test('removeTask - removes the task from taskList', () => {
+		jest.spyOn(TaskManager, 'removeTask').mockReturnValue(taskList);
+
+		const expectation = { taskList };
+		const result = removeTask(context);
+
+		expect(TaskManager.removeTask)
 			.toHaveBeenCalledWith(context);
 		expect(result).toEqual(expectation);
 	});
