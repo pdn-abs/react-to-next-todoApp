@@ -3,7 +3,7 @@ import TodoManager from '../services/todoManager';
 
 describe('actions', () => {
 	const { setInput, addTodo, toggleTodo, toggleTodoList,
-		setFilter, setEditing, editTodo } = actions;
+		setFilter, setEditing, editTodo, removeTodo } = actions;
 	const context = Symbol('context');
 
 	test('setInput- sets the given input', () => {
@@ -70,6 +70,17 @@ describe('actions', () => {
 
 		expect(TodoManager.editTodo)
 			.toHaveBeenCalledWith(context);
+		expect(result).toEqual(expectation);
+	});
+	test('removeTodo - removes the given todo', () => {
+		const removedTodo = Symbol('removedTodo');
+
+		jest.spyOn(TodoManager, 'removeTodo').mockReturnValue(removedTodo);
+
+		const expectation = { todoList: removedTodo };
+		const result = removeTodo(context);
+
+		expect(TodoManager.removeTodo).toHaveBeenCalledWith(context);
 		expect(result).toEqual(expectation);
 	});
 });
