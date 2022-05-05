@@ -36,7 +36,7 @@ const setTasks = (context) => ({
 	taskList: context.data,
 });
 const addTasks = (context) => ({
-	taskList: TaskManager.AddTask(context),
+	taskList: TaskManager.addTask(context),
 });
 const addTaskToTodo = (context) => ({
 	todoList: TodoManager.addTaskToTodo(context),

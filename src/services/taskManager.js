@@ -18,7 +18,7 @@ const TaskManager = {
 		return state.taskList.filter((task) => task.id !== data.id);
 	},
 
-	AddTask: (context) => {
+	addTask: (context) => {
 		const { config: { maxTaskListLength }, state: { taskList }} = context;
 
 		return taskList.length <= maxTaskListLength
