@@ -4,7 +4,7 @@ import TodoManager from '../services/todoManager';
 describe('actions', () => {
 	const { setInput, addTodo, toggleTodo, toggleTodoList,
 		setFilter, setEditing, editTodo, removeTodo,
-		getClearCompleted } = actions;
+		getClearCompleted, setTasks } = actions;
 	const context = Symbol('context');
 	const todoList = Symbol('todoList');
 
@@ -85,5 +85,12 @@ describe('actions', () => {
 		expect(TodoManager.clearCompleted)
 			.toHaveBeenCalledWith(context);
 		expect(result).toEqual(expectation);
+	});
+	test('setTask- sets the tasks', () => {
+		const data = Symbol('data') ;
+
+		const result = setTasks({ data });
+
+		expect(result).toEqual({ taskList: data });
 	});
 });
