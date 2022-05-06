@@ -1,6 +1,6 @@
 import TaskManager from './taskManager';
 describe('taskManager', () => {
-	const { getTask, removeTask, AddTask } = TaskManager;
+	const { getTask, removeTask, addTask } = TaskManager;
 
 	test('getTask', () => {
 		const context = {
@@ -31,7 +31,7 @@ describe('taskManager', () => {
 					taskList: [{ id: 'MFMULLYR', todo: 'Debug the code' }],
 				},
 			};
-			const result = AddTask(context);
+			const result = addTask(context);
 
 			expect(result).toEqual([{ id: 'MFMULLYR', todo: 'Debug the code' },
 				{ id: expect.any(String), todo: 'Test the code' }]);
@@ -49,7 +49,7 @@ describe('taskManager', () => {
 						{ id: 'DFAULLYR' }],
 				},
 			};
-			const result = AddTask(context);
+			const result = addTask(context);
 
 			expect(result).toEqual([{ id: 'MFMULLYR' },
 				{ id: 'DEMULLYR' },
