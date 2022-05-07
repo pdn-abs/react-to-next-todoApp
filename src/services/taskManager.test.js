@@ -22,8 +22,8 @@ describe('taskManager', () => {
 
 		expect(result).toEqual([{ id: 'MFMULLYR', todo: 'Debug the code' }]);
 	});
-	describe('Addtask ', () => {
-		test('AddTask -TaskList length is less than MaxTaskListLength', () => {
+	describe('addTask ', () => {
+		test('addTask -TaskList length is less than MaxTaskListLength', () => {
 			const context = {
 				config: { idLength: 8, maxTaskListLength: 5 },
 				data: 'Test the code',
@@ -36,7 +36,7 @@ describe('taskManager', () => {
 			expect(result).toEqual([{ id: 'MFMULLYR', todo: 'Debug the code' },
 				{ id: expect.any(String), todo: 'Test the code' }]);
 		});
-		test('AddTask -TaskList length exceeds MaxTaskListLength', () => {
+		test('addTask -TaskList length exceeds MaxTaskListLength', () => {
 			const context = {
 				config: { idLength: 8, maxTaskListLength: 5 },
 				data: 'Test the code',

@@ -5,7 +5,7 @@ describe('todoManager', () => {
 		filters, filterTodos, editTodo, removeTodo,
 		clearCompleted, addTaskToTodo } = TodoManager;
 
-	test('Add Todo - adds the given todo', () => {
+	test('add Todo - adds the given todo', () => {
 		const context = {
 			state: { todoList: [{ id: 'MFMULLYR',
 				todo: 'Submit the Code',
@@ -23,7 +23,7 @@ describe('todoManager', () => {
 			todo: 'Debug the Code',
 			completed: false }]);
 	});
-	test('Toggle Todo', () => {
+	test('toggle Todo', () => {
 		const context = {
 			state: { todoList: [{ id: 'MFMULLYR',
 				todo: 'Submit the Code',
@@ -45,8 +45,8 @@ describe('todoManager', () => {
 			todo: 'Debug the Code',
 			completed: true }]);
 	});
-	describe('Toggle TodoList', () => {
-		test('Toggle TodoList-data is true', () => {
+	describe('toggle TodoList', () => {
+		test('toggle TodoList-data is true', () => {
 			const context = {
 				state: { todoList: [{ id: 'MFMULLYR',
 					todo: 'Submit the Code',
@@ -66,7 +66,7 @@ describe('todoManager', () => {
 				todo: 'Debug the Code',
 				completed: true }]);
 		});
-		test('Toggle TodoList-data is false', () => {
+		test('toggle TodoList-data is false', () => {
 			const context = {
 				state: { todoList: [{ id: 'MFMULLYR',
 					todo: 'Submit the Code',
@@ -87,8 +87,8 @@ describe('todoManager', () => {
 				completed: false }]);
 		});
 	});
-	describe('Has No Todos', () => {
-		test('Has No Todos - TodoList Empty', () => {
+	describe('has No Todos', () => {
+		test('has No Todos - TodoList Empty', () => {
 			const context = {
 				state: { todoList: [] },
 			};
@@ -96,7 +96,7 @@ describe('todoManager', () => {
 
 			expect(result).toEqual(true);
 		});
-		test('Has No Todos - TodoList has todos', () => {
+		test('has No Todos - TodoList has todos', () => {
 			const context = {
 				state: { todoList: [{ id: 'MFMULLYR',
 					todo: 'Submit the Code',
@@ -111,8 +111,8 @@ describe('todoManager', () => {
 			expect(result).toEqual(false);
 		});
 	});
-	describe('Is All Checked ', () => {
-		test('Is All Checked - All Todos Selected', () => {
+	describe('is All Checked ', () => {
+		test('is All Checked - All Todos Selected', () => {
 			const context = {
 				state: { todoList: [{ completed: true },
 					{ completed: true }] },
@@ -121,7 +121,7 @@ describe('todoManager', () => {
 
 			expect(result).toEqual(true);
 		});
-		test('Is All Checked - Not All Todos Selected', () => {
+		test('is All Checked - Not All Todos Selected', () => {
 			const context = {
 				state: { todoList: [{ completed: true },
 					{ completed: false }] },
@@ -132,8 +132,8 @@ describe('todoManager', () => {
 			expect(result).toEqual(false);
 		});
 	});
-	describe('Has Completed Todos ', () => {
-		test('Has Completed Todos - One Todo Selected', () => {
+	describe('has Completed Todos ', () => {
+		test('has Completed Todos - One Todo Selected', () => {
 			const context = {
 				state: { todoList: [{ completed: false },
 					{ completed: true }] },
@@ -142,7 +142,7 @@ describe('todoManager', () => {
 
 			expect(result).toEqual(true);
 		});
-		test('Has Completed Todos - None of the Todos Selected', () => {
+		test('has Completed Todos - None of the Todos Selected', () => {
 			const context = {
 				state: { todoList: [{ completed: false },
 					{ completed: false }] },
@@ -153,27 +153,27 @@ describe('todoManager', () => {
 			expect(result).toEqual(false);
 		});
 	});
-	describe('Filters', () => {
-		test('Filters - All', () => {
+	describe('filters', () => {
+		test('filters - All', () => {
 			const result = filters.all();
 
 			expect(result).toEqual(true);
 		});
-		test('Filters - Active', () => {
+		test('filters - Active', () => {
 			const todo = { completed: false };
 			const result = filters.active(todo);
 
 			expect(result).toEqual(true);
 		});
-		test('Filters - Completed', () => {
+		test('filters - Completed', () => {
 			const todo = { completed: true };
 			const result = filters.completed(todo);
 
 			expect(result).toEqual(true);
 		});
 	});
-	describe('Filter Todos', () => {
-		test('Filter Todos - when Filter - All button clicked', () => {
+	describe('filter Todos', () => {
+		test('filter Todos - when Filter - All button clicked', () => {
 			const context = {
 				state: { todoList: [
 					{ completed: false },
@@ -192,7 +192,7 @@ describe('todoManager', () => {
 				{ completed: true },
 			]);
 		});
-		test('Filter Todos - when Filter - Active button clicked', () => {
+		test('filter Todos - when Filter - Active button clicked', () => {
 			const context = {
 				state: { todoList: [
 					{ completed: false },
@@ -208,7 +208,7 @@ describe('todoManager', () => {
 			expect(result).toEqual([{ completed: false },
 				{ completed: false }]);
 		});
-		test('Filter Todos - when Filter - Completed button clicked', () => {
+		test('filter Todos - when Filter - Completed button clicked', () => {
 			const context = {
 				state: { todoList: [
 					{ completed: false },
@@ -225,7 +225,7 @@ describe('todoManager', () => {
 				{ completed: true }]);
 		});
 	});
-	test('Edit Todo ', () => {
+	test('edit Todo ', () => {
 		const context = {
 			state: { todoList: [{ id: 'MFMULLYR',
 				todo: 'Submit the Code' }],
@@ -237,7 +237,7 @@ describe('todoManager', () => {
 		expect(result).toEqual([{ id: 'MFMULLYR',
 			todo: 'Commit the code' }]);
 	});
-	test('Remove Todo ', () => {
+	test('remove Todo ', () => {
 		const context = {
 			data: { id: 'LFMUHLYR' },
 			state: { todoList: [{ id: 'MFMULLYR',
@@ -251,7 +251,7 @@ describe('todoManager', () => {
 		expect(result).toEqual([{ id: 'MFMULLYR',
 			todo: 'Submit the Code' }]);
 	});
-	test('Clear Completed Todos', () => {
+	test('clear Completed Todos', () => {
 		const context = {
 			state: { todoList: [
 				{ completed: false },
@@ -265,7 +265,7 @@ describe('todoManager', () => {
 		expect(result).toEqual([{ completed: false },
 			{ completed: false }]);
 	});
-	test('AddTaskToTodo - adds the selected task to todoList', () => {
+	test('addTaskToTodo - adds the selected task to todoList', () => {
 		const context = {
 			state: { todoList: [{ id: 'MFMULLYR',
 				todo: 'Submit the Code',

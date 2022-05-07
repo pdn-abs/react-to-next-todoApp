@@ -1,106 +1,70 @@
 import { rndString } from '@laufire/utils/random';
 const TodoManager = {
-	addTodo: (context) => {
-		const { config, state } = context;
-		const { todoList } = state;
-
-		return [
-			...todoList,
+	addTodo: ({ config, state }) =>
+		[
+			...state.todoList,
 			{
 				id: rndString(config.idLength),
 				todo: state.input,
 				completed: false,
 			},
-		];
-	},
+		],
 
-	toggleTodo: (context) => {
-		const { data } = context;
-		const { todoList } = context.state;
+	toggleTodo: ({ data, state: { todoList }}) =>
+		todoList.map((todo) => (todo.id !== data.id
+			? todo
+			: {
+				...todo,
+				completed: !data.completed,
+			})),
 
-		return (
-			todoList.map((todo) => (todo.id !== data.id
-				? todo
-				: {
-					...todo,
-					completed: !data.completed,
-				}
-			))
-		);
-	},
-	toggleTodoList: (context) => {
-		const { data } = context;
-		const { todoList } = context.state;
+	toggleTodoList: ({ data, state: { todoList }}) =>
+		todoList.map((todo) => (
+			{
+				...todo,
+				completed: data,
+			})),
 
-		return (
-			todoList.map((todo) => (
-				{
-					...todo,
-					completed: data,
-				}
-			))
-		);
-	},
-	hasNoTodos: (context) => context.state.todoList.length === 0,
+	hasNoTodos: ({ state: { todoList }}) => todoList.length === 0,
 
-	isAllChecked: (context) => {
-		const { todoList } = context.state;
-		const unCheckedList = todoList.filter((todo) => !todo.completed);
+	isAllChecked: ({ state: { todoList }}) =>
+		todoList.filter((todo) => !todo.completed).length === 0,
 
-		return unCheckedList.length === 0;
-	},
-	hasCompletedTodo: (context) => {
-		const { todoList } = context.state;
-		const checkedList = todoList.filter((todo) => todo.completed);
+	hasCompletedTodo: ({ state: { todoList }}) =>
+		todoList.filter((todo) => todo.completed).length > 0,
 
-		return checkedList.length > 0;
-	},
 	filters: {
 		all: () => true,
 		active: (todo) => !todo.completed,
 		completed: (todo) => todo.completed,
 	},
-	filterTodos: (context) => {
-		const { todoList, filter } = context.state;
+	filterTodos: ({ state: { todoList, filter }}) =>
+		todoList.filter(TodoManager.filters[filter]),
 
-		return todoList.filter(TodoManager.filters[filter]);
-	},
-	editTodo: (context) => {
-		const { todoList, editing, input } = context.state;
-
-		return todoList.map((todo) =>
+	editTodo: ({ state: { todoList, editing, input }}) =>
+		todoList.map((todo) =>
 			(todo.id !== editing.id
 				? todo
 				: {
 					...todo,
 					todo: input,
-				}));
-	},
-	removeTodo: (context) => {
-		const { data } = context;
-		const { todoList } = context.state;
+				})),
 
-		return todoList.filter((todo) => todo.id !== data.id);
-	},
+	removeTodo: ({ data, state: { todoList }}) =>
+		todoList.filter((todo) => todo.id !== data.id),
 
-	clearCompleted: (context) => {
-		const { todoList } = context.state;
+	clearCompleted: ({ state: { todoList }}) =>
+		todoList.filter((todo) => !todo.completed),
 
-		return todoList.filter((todo) => !todo.completed);
-	},
-	addTaskToTodo: (context) => {
-		const { data } = context;
-		const { todoList } = context.state;
+	addTaskToTodo: ({ data, state: { todoList }}) => [
+		...todoList,
+		{
+			id: data.id,
+			todo: data.todo,
+			completed: false,
+		},
+	],
 
-		return [
-			...todoList,
-			{
-				id: data.id,
-				todo: data.todo,
-				completed: false,
-			},
-		];
-	},
 };
 
 export default TodoManager;
