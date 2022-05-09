@@ -173,6 +173,8 @@ describe('todoManager', () => {
 		});
 	});
 	describe('filter Todos', () => {
+		const todoList = Symbol('todoList');
+
 		test('filter Todos - when Filter - All button clicked', () => {
 			const context = {
 				state: { todoList: [
@@ -183,14 +185,19 @@ describe('todoManager', () => {
 				],
 				filter: 'all' },
 			};
+			const expectation = [
+				{ completed: false },
+				{ completed: false },
+				{ completed: true },
+				{ completed: true },
+			];
+
+			jest.spyOn(TodoManager.filters, 'all').mockReturnValue(todoList);
+
 			const result = filterTodos(context);
 
-			expect(result).toEqual([
-				{ completed: false },
-				{ completed: false },
-				{ completed: true },
-				{ completed: true },
-			]);
+			expect(TodoManager.filters.all).toHaveBeenCalled();
+			expect(result).toEqual(expectation);
 		});
 		test('filter Todos - when Filter - Active button clicked', () => {
 			const context = {
@@ -203,10 +210,24 @@ describe('todoManager', () => {
 				filter: 'active' },
 
 			};
+			const expectation = [{ completed: false },
+				{ completed: false },
+				{ completed: true },
+				{ completed: true }];
+
+			jest.spyOn(TodoManager.filters, 'active')
+				.mockReturnValue(true);
 			const result = filterTodos(context);
 
-			expect(result).toEqual([{ completed: false },
-				{ completed: false }]);
+			context.state.todoList.forEach((
+				todo, i, todos
+			) => {
+				expect(TodoManager.filters.active)
+					.toHaveBeenCalledWith(
+						todo, i, todos
+					);
+			});
+			expect(result).toEqual(expectation);
 		});
 		test('filter Todos - when Filter - Completed button clicked', () => {
 			const context = {
@@ -219,10 +240,24 @@ describe('todoManager', () => {
 				filter: 'completed' },
 
 			};
+			const expectation = [{ completed: false },
+				{ completed: false },
+				{ completed: true },
+				{ completed: true }];
+
+			jest.spyOn(TodoManager.filters, 'completed')
+				.mockReturnValue(true);
 			const result = filterTodos(context);
 
-			expect(result).toEqual([{ completed: true },
-				{ completed: true }]);
+			context.state.todoList.forEach((
+				todo, i, todos
+			) => {
+				expect(TodoManager.filters.completed)
+					.toHaveBeenCalledWith(
+						todo, i, todos
+					);
+			});
+			expect(result).toEqual(expectation);
 		});
 	});
 	test('edit Todo ', () => {
