@@ -31,10 +31,15 @@ describe('taskManager', () => {
 					taskList: [{ id: 'MFMULLYR', todo: 'Debug the code' }],
 				},
 			};
+			const todo = { id: expect.any(String), todo: 'Test the code' };
+
+			jest.spyOn(TaskManager, 'getTask').mockReturnValue(todo);
+			const expectation = [{ id: 'MFMULLYR', todo: 'Debug the code' },
+				{ id: expect.any(String), todo: 'Test the code' }];
 			const result = addTask(context);
 
-			expect(result).toEqual([{ id: 'MFMULLYR', todo: 'Debug the code' },
-				{ id: expect.any(String), todo: 'Test the code' }]);
+			expect(TaskManager.getTask).toHaveBeenCalledWith(context);
+			expect(result).toEqual(expectation);
 		});
 		test('addTask -TaskList length exceeds MaxTaskListLength', () => {
 			const context = {
