@@ -1,6 +1,9 @@
+import { range } from '@laufire/utils/collection';
+import { rndBetween } from '@laufire/utils/lib';
 import TaskManager from './taskManager';
+
 describe('taskManager', () => {
-	const { getTask, removeTask, addTask } = TaskManager;
+	const { getTask, init, removeTask, addTask } = TaskManager;
 
 	test('getTask', () => {
 		const context = {
@@ -11,6 +14,30 @@ describe('taskManager', () => {
 
 		expect(result).toEqual({ id: expect.any(String),
 			todo: 'Test the code' });
+	});
+	test('init', () => {
+		const todo = Symbol('todo');
+		const context = {
+			actions: {
+				setTasks: jest.fn(),
+			},
+			config: {
+				tasks: range(0, rndBetween()),
+			},
+		};
+
+		jest.spyOn(context.actions, 'setTasks').mockReturnValue();
+		jest.spyOn(TaskManager, 'getTask').mockReturnValue(todo);
+
+		init(context);
+
+		const setTask = context.config.tasks.map(() => todo);
+
+		context.config.tasks.map((task) =>
+			expect(TaskManager.getTask)
+				.toHaveBeenCalledWith({ ...context, data: task }));
+		expect(context.actions.setTasks)
+			.toHaveBeenCalledWith(setTask);
 	});
 	test('removeTask', () => {
 		const context = {
