@@ -1,19 +1,26 @@
 import { range } from '@laufire/utils/collection';
 import { rndBetween } from '@laufire/utils/lib';
+import * as random from '@laufire/utils/random';
 import TaskManager from './taskManager';
 
 describe('taskManager', () => {
 	const { getTask, init, removeTask, addTask } = TaskManager;
 
 	test('getTask', () => {
+		const id = Symbol('id');
+
 		const context = {
-			config: { idLength: 4 },
-			data: 'Test the code',
+			config: { idLength: Symbol('idLength') },
+			data: Symbol('Test the code'),
 		};
+
+		jest.spyOn(random, 'rndString').mockReturnValue(id);
+
 		const result = getTask(context);
 
-		expect(result).toEqual({ id: expect.any(String),
-			todo: 'Test the code' });
+		expect(random.rndString)
+			.toHaveBeenCalledWith(context.config.idLength);
+		expect(result).toEqual({ id: id, todo: context.data });
 	});
 	test('init', () => {
 		const todo = Symbol('todo');
