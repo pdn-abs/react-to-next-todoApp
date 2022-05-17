@@ -5,10 +5,12 @@ const TaskManager = {
 		id: rndString(config.idLength),
 		todo: text,
 	}),
+	getConfigTasks: (context) =>
+		context.config.tasks.map((task) =>
+			TaskManager.getTask({ ...context, data: task })),
 
 	init: (context) =>
-		context.actions.setTasks(context.config.tasks.map((task) =>
-			TaskManager.getTask({ ...context, data: task }))),
+		context.actions.setTasks(TaskManager.getConfigTasks(context)),
 
 	removeTask: ({ state, data }) =>
 		state.taskList.filter((task) => task.id !== data.id),

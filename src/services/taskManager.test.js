@@ -4,14 +4,14 @@ import * as random from '@laufire/utils/random';
 import TaskManager from './taskManager';
 
 describe('taskManager', () => {
-	const { getTask, init, removeTask, addTask } = TaskManager;
+	const { getTask, getConfigTasks, init, removeTask, addTask } = TaskManager;
 
 	test('getTask', () => {
 		const id = Symbol('id');
 
 		const context = {
 			config: { idLength: Symbol('idLength') },
-			data: Symbol('Test the code'),
+			data: Symbol('data'),
 		};
 
 		jest.spyOn(random, 'rndString').mockReturnValue(id);
@@ -20,31 +20,43 @@ describe('taskManager', () => {
 
 		expect(random.rndString)
 			.toHaveBeenCalledWith(context.config.idLength);
+
 		expect(result).toEqual({ id: id, todo: context.data });
 	});
-	test('init', () => {
+	test('getConfigTasks', () => {
 		const todo = Symbol('todo');
 		const context = {
-			actions: {
-				setTasks: jest.fn(),
-			},
 			config: {
-				tasks: range(0, rndBetween()),
+				tasks: range(0, rndBetween()).map(Symbol),
 			},
 		};
 
-		jest.spyOn(context.actions, 'setTasks').mockReturnValue();
 		jest.spyOn(TaskManager, 'getTask').mockReturnValue(todo);
 
-		init(context);
+		const result = getConfigTasks(context);
 
-		const setTask = context.config.tasks.map(() => todo);
+		const expectation = context.config.tasks.map(() => todo);
 
 		context.config.tasks.map((task) =>
 			expect(TaskManager.getTask)
 				.toHaveBeenCalledWith({ ...context, data: task }));
-		expect(context.actions.setTasks)
-			.toHaveBeenCalledWith(setTask);
+
+		expect(result).toEqual(expectation);
+	});
+	test('init', () => {
+		const tasks = Symbol('tasks');
+		const setTasks = jest.fn().mockReturnValue();
+		const context = {
+			actions: { setTasks },
+		};
+
+		jest.spyOn(TaskManager, 'getConfigTasks').mockReturnValue(tasks);
+
+		init(context);
+
+		expect(TaskManager.getConfigTasks).toHaveBeenCalledWith(context);
+
+		expect(context.actions.setTasks).toHaveBeenCalledWith(tasks);
 	});
 	test('removeTask', () => {
 		const context = {
