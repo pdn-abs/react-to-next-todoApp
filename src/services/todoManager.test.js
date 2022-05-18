@@ -34,27 +34,51 @@ describe('todoManager', () => {
 				completed: false },
 		]);
 	});
-	test('toggle Todo', () => {
-		const context = {
-			state: { todoList: [{ id: 'MFMULLYR',
-				todo: 'Submit the Code',
-				completed: false },
-			{ id: 'LFMUHLYR',
-				todo: 'Debug the Code',
-				completed: false }] },
-			data: { id: 'LFMUHLYR',
-				todo: 'Debug the Code',
-				completed: false },
+	describe('toggle Todo', () => {
+		test('toggle Todo - select a todo', () => {
+			const context = {
+				state: { todoList: [{ id: id,
+					todo: todo,
+					completed: false },
+				{ id: 'xyz',
+					todo: todo,
+					completed: false }] },
+				data: { id: 'xyz',
+					todo: todo,
+					completed: false },
 
-		};
-		const result = toggleTodo(context);
+			};
+			const result = toggleTodo(context);
 
-		expect(result).toEqual([{ id: 'MFMULLYR',
-			todo: 'Submit the Code',
-			completed: false },
-		{ id: 'LFMUHLYR',
-			todo: 'Debug the Code',
-			completed: true }]);
+			expect(result).toEqual([{ id: id,
+				todo: todo,
+				completed: false },
+			{ id: 'xyz',
+				todo: todo,
+				completed: true }]);
+		});
+		test('toggle Todo - unselect a todo', () => {
+			const context = {
+				state: { todoList: [{ id: id,
+					todo: todo,
+					completed: false },
+				{ id: 'xyz',
+					todo: todo,
+					completed: true }] },
+				data: { id: 'xyz',
+					todo: todo,
+					completed: true },
+
+			};
+			const result = toggleTodo(context);
+
+			expect(result).toEqual([{ id: id,
+				todo: todo,
+				completed: false },
+			{ id: 'xyz',
+				todo: todo,
+				completed: false }]);
+		});
 	});
 	describe('toggle TodoList', () => {
 		test('toggle TodoList-data is true', () => {
