@@ -171,14 +171,14 @@ describe('todoManager', () => {
 			expect(result).toEqual(true);
 		});
 		test('filters - Active', () => {
-			const todo = { completed: false };
-			const result = filters.active(todo);
+			const todos = { completed: false };
+			const result = filters.active(todos);
 
 			expect(result).toEqual(true);
 		});
 		test('filters - Completed', () => {
-			const todo = { completed: true };
-			const result = filters.completed(todo);
+			const todos = { completed: true };
+			const result = filters.completed(todos);
 
 			expect(result).toEqual(true);
 		});
@@ -231,11 +231,11 @@ describe('todoManager', () => {
 			const result = filterTodos(context);
 
 			context.state.todoList.forEach((
-				todo, i, todos
+				ele, i, todos
 			) => {
 				expect(TodoManager.filters.active)
 					.toHaveBeenCalledWith(
-						todo, i, todos
+						ele, i, todos
 					);
 			});
 			expect(result).toEqual(expectation);
@@ -261,11 +261,11 @@ describe('todoManager', () => {
 			const result = filterTodos(context);
 
 			context.state.todoList.forEach((
-				todo, i, todos
+				ele, i, todos
 			) => {
 				expect(TodoManager.filters.completed)
 					.toHaveBeenCalledWith(
-						todo, i, todos
+						ele, i, todos
 					);
 			});
 			expect(result).toEqual(expectation);
