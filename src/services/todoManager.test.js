@@ -1,27 +1,38 @@
 import TodoManager from './todoManager.js';
+import * as random from '@laufire/utils/random';
+
 describe('todoManager', () => {
 	const { addTodo, toggleTodo, toggleTodoList,
 		hasNoTodos, isAllChecked, hasCompletedTodo,
 		filters, filterTodos, editTodo, removeTodo,
 		clearCompleted, addTaskToTodo } = TodoManager;
+	const id = Symbol('id');
+	const todo = Symbol('todo');
+	const completed = Symbol('completed');
 
 	test('add Todo - adds the given todo', () => {
 		const context = {
-			state: { todoList: [{ id: 'MFMULLYR',
-				todo: 'Submit the Code',
-				completed: false }],
-			input: 'Debug the Code' },
-			config: { idLength: 8 },
+			state: { todoList: [
+				{ id, todo, completed },
+			],
+			input: Symbol('input') },
+			config: { idLength: Symbol('idLength') },
 
 		};
+
+		jest.spyOn(random, 'rndString').mockReturnValue(id);
+
 		const result = addTodo(context);
 
-		expect(result).toEqual([{ id: 'MFMULLYR',
-			todo: 'Submit the Code',
-			completed: false },
-		{ id: expect.any(String),
-			todo: 'Debug the Code',
-			completed: false }]);
+		expect(random.rndString)
+			.toHaveBeenCalledWith(context.config.idLength);
+
+		expect(result).toEqual([
+			{ id, todo, completed },
+			{ id: id,
+				todo: context.state.input,
+				completed: false },
+		]);
 	});
 	test('toggle Todo', () => {
 		const context = {
