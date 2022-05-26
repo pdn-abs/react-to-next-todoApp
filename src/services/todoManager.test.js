@@ -1,5 +1,7 @@
 import TodoManager from './todoManager.js';
 import * as random from '@laufire/utils/random';
+import { range } from '@laufire/utils/collection';
+import { rndBetween } from '@laufire/utils/lib';
 
 describe('todoManager', () => {
 	const { addTodo, toggleTodo, toggleTodoList,
@@ -9,6 +11,14 @@ describe('todoManager', () => {
 	const id = Symbol('id');
 	const todo = Symbol('todo');
 	const completed = Symbol('completed');
+	const isCompleted = [true, false];
+	const min = 2;
+	const max = 10;
+	const todoList = range(1, rndBetween(min, max)).map((i) =>
+		({
+			id: Symbol(i),
+			completed: random.rndValue(isCompleted),
+		}));
 
 	test('add Todo - adds the given todo', () => {
 		const context = {
@@ -35,91 +45,46 @@ describe('todoManager', () => {
 		]);
 	});
 	describe('toggle Todo', () => {
-		test('toggle Todo - select a todo', () => {
-			const context = {
-				state: { todoList: [{ id: id,
-					todo: todo,
-					completed: false },
-				{ id: 'xyz',
-					todo: todo,
-					completed: false }] },
-				data: { id: 'xyz',
-					todo: todo,
-					completed: false },
+		test('toggle Todo - data selected from todoList', () => {
+			const data = random.rndValue(todoList);
 
+			const context = {
+				state: { todoList },
+				data: data,
 			};
+
 			const result = toggleTodo(context);
 
-			expect(result).toEqual([{ id: id,
-				todo: todo,
-				completed: false },
-			{ id: 'xyz',
-				todo: todo,
-				completed: true }]);
+			const toggledTodo = result
+				.filter((ele) => ele.id === data.id) ;
+
+			expect(toggledTodo[0].completed).toEqual(!data.completed);
 		});
-		test('toggle Todo - unselect a todo', () => {
+		test('toggle Todo - data out of todoList', () => {
+			const 	data = { id };
 			const context = {
-				state: { todoList: [{ id: id,
-					todo: todo,
-					completed: false },
-				{ id: 'xyz',
-					todo: todo,
-					completed: true }] },
-				data: { id: 'xyz',
-					todo: todo,
-					completed: true },
+				state: { todoList },
+				data: data,
 
 			};
 			const result = toggleTodo(context);
 
-			expect(result).toEqual([{ id: id,
-				todo: todo,
-				completed: false },
-			{ id: 'xyz',
-				todo: todo,
-				completed: false }]);
+			expect(result).toEqual(todoList);
 		});
 	});
 	describe('toggle TodoList', () => {
-		test('toggle TodoList-data is true', () => {
+		test('toggle TodoList', () => {
+			const data = random.rndValue(isCompleted);
 			const context = {
-				state: { todoList: [{ id: 'MFMULLYR',
-					todo: 'Submit the Code',
-					completed: false },
-				{ id: 'LFMUHLYR',
-					todo: 'Debug the Code',
-					completed: false }] },
-				data: true,
+				state: { todoList },
+				data: data,
 
 			};
 			const result = toggleTodoList(context);
 
-			expect(result).toEqual([{ id: 'MFMULLYR',
-				todo: 'Submit the Code',
-				completed: true },
-			{ id: 'LFMUHLYR',
-				todo: 'Debug the Code',
-				completed: true }]);
-		});
-		test('toggle TodoList-data is false', () => {
-			const context = {
-				state: { todoList: [{ id: 'MFMULLYR',
-					todo: 'Submit the Code',
-					completed: true },
-				{ id: 'LFMUHLYR',
-					todo: 'Debug the Code',
-					completed: true }] },
-				data: false,
+			const output = result.filter((ele) => ele.completed === data);
 
-			};
-			const result = toggleTodoList(context);
-
-			expect(result).toEqual([{ id: 'MFMULLYR',
-				todo: 'Submit the Code',
-				completed: false },
-			{ id: 'LFMUHLYR',
-				todo: 'Debug the Code',
-				completed: false }]);
+			expect(output.length).toEqual(todoList.length);
 		});
 	});
 	describe('has No Todos', () => {
@@ -133,12 +98,7 @@ describe('todoManager', () => {
 		});
 		test('has No Todos - TodoList has todos', () => {
 			const context = {
-				state: { todoList: [{ id: 'MFMULLYR',
-					todo: 'Submit the Code',
-					completed: false },
-				{ id: 'LFMUHLYR',
-					todo: 'Debug the Code',
-					completed: false }] },
+				state: { todoList },
 
 			};
 			const result = hasNoTodos(context);
@@ -148,9 +108,10 @@ describe('todoManager', () => {
 	});
 	describe('is All Checked ', () => {
 		test('is All Checked - All Todos Selected', () => {
+			const todos = range(0, rndBetween())
+				.map((i) => ({ id: Symbol(i), completed: true }));
 			const context = {
-				state: { todoList: [{ completed: true },
-					{ completed: true }] },
+				state: { todoList: todos },
 			};
 			const result = isAllChecked(context);
 
@@ -158,8 +119,7 @@ describe('todoManager', () => {
 		});
 		test('is All Checked - Not All Todos Selected', () => {
 			const context = {
-				state: { todoList: [{ completed: true },
-					{ completed: false }] },
+				state: { todoList },
 
 			};
 			const result = isAllChecked(context);
@@ -169,10 +129,7 @@ describe('todoManager', () => {
 	});
 	describe('has Completed Todos ', () => {
 		test('has Completed Todos - One Todo Selected', () => {
-			const context = {
-				state: { todoList: [{ completed: false },
-					{ completed: true }] },
-			};
+			const context = { state: { todoList }};
 			const result = hasCompletedTodo(context);
 
 			expect(result).toEqual(true);
@@ -189,168 +146,104 @@ describe('todoManager', () => {
 		});
 	});
 	describe('filters', () => {
-		test('filters - All', () => {
-			const result = filters.all();
-
-			expect(result).toEqual(true);
-		});
-		test('filters - Active', () => {
-			const todos = { completed: false };
-			const result = filters.active(todos);
-
-			expect(result).toEqual(true);
-		});
-		test('filters - Completed', () => {
-			const todos = { completed: true };
-			const result = filters.completed(todos);
-
-			expect(result).toEqual(true);
+		test.each([
+			['all', '', true],
+			['active', { completed: false }, true],
+			['completed', { completed: true }, true],
+		])('filters', (
+			fn, todos, expected
+		) => {
+			expect(filters[fn](todos)).toBe(expected);
 		});
 	});
 	describe('filter Todos', () => {
-		const todoList = Symbol('todoList');
-
-		test('filter Todos - when Filter - All button clicked', () => {
-			const context = {
-				state: { todoList: [
-					{ completed: false },
-					{ completed: false },
-					{ completed: true },
-					{ completed: true },
-				],
-				filter: 'all' },
+		test('filter Todos ', () => {
+			const filterTypes = ['all', 'active', 'completed'];
+			const filter = random.rndValue(filterTypes);
+			const getFilter = Symbol('getFilter');
+			const state = {
+				todoList: {
+					filter: jest.fn().mockReturnValue(getFilter),
+				},
+				filter: filter,
 			};
-			const expectation = [
-				{ completed: false },
-				{ completed: false },
-				{ completed: true },
-				{ completed: true },
-			];
+			const expectation = getFilter;
 
-			jest.spyOn(TodoManager.filters, 'all').mockReturnValue(todoList);
+			jest.spyOn(TodoManager.filters, filter)
+				.mockReturnValue();
 
-			const result = filterTodos(context);
+			const result = filterTodos({ state });
 
-			expect(TodoManager.filters.all).toHaveBeenCalled();
-			expect(result).toEqual(expectation);
-		});
-		test('filter Todos - when Filter - Active button clicked', () => {
-			const context = {
-				state: { todoList: [
-					{ completed: false },
-					{ completed: false },
-					{ completed: true },
-					{ completed: true },
-				],
-				filter: 'active' },
-
-			};
-			const expectation = [{ completed: false },
-				{ completed: false },
-				{ completed: true },
-				{ completed: true }];
-
-			jest.spyOn(TodoManager.filters, 'active')
-				.mockReturnValue(true);
-			const result = filterTodos(context);
-
-			context.state.todoList.forEach((
-				ele, i, todos
-			) => {
-				expect(TodoManager.filters.active)
-					.toHaveBeenCalledWith(
-						ele, i, todos
-					);
-			});
-			expect(result).toEqual(expectation);
-		});
-		test('filter Todos - when Filter - Completed button clicked', () => {
-			const context = {
-				state: { todoList: [
-					{ completed: false },
-					{ completed: false },
-					{ completed: true },
-					{ completed: true },
-				],
-				filter: 'completed' },
-
-			};
-			const expectation = [{ completed: false },
-				{ completed: false },
-				{ completed: true },
-				{ completed: true }];
-
-			jest.spyOn(TodoManager.filters, 'completed')
-				.mockReturnValue(true);
-			const result = filterTodos(context);
-
-			context.state.todoList.forEach((
-				ele, i, todos
-			) => {
-				expect(TodoManager.filters.completed)
-					.toHaveBeenCalledWith(
-						ele, i, todos
-					);
-			});
+			expect(state.todoList.filter)
+				.toHaveBeenCalledWith(TodoManager.filters[filter]);
 			expect(result).toEqual(expectation);
 		});
 	});
-	test('edit Todo ', () => {
-		const context = {
-			state: { todoList: [{ id: 'MFMULLYR',
-				todo: 'Submit the Code' }],
-			editing: { id: 'MFMULLYR', todo: 'Submit the Code' },
-			input: 'Commit the code' },
-		};
-		const result = editTodo(context);
+	describe('edit todo', () => {
+		const todos = range(1, rndBetween(min, max)).map((i) =>
+			({
+				id: Symbol(i),
+				todo: Symbol('todo'),
+				completed: random.rndValue(isCompleted),
+			}));
 
-		expect(result).toEqual([{ id: 'MFMULLYR',
-			todo: 'Commit the code' }]);
+		test('edit Todo - editing todo is from todoList ', () => {
+			const editing = random.rndValue(todos);
+			const input = Symbol('input');
+			const context = {
+				state: { todoList: todos,
+					editing: editing,
+					input: input },
+			};
+			const result = editTodo(context);
+			const editedTodo = result.find((ele) => ele.todo === input);
+
+			expect(editedTodo.id).toEqual(editing.id);
+		});
+		test('edit Todo - editing todo is out of todoList', () => {
+			const editing = { id, todo, completed };
+			const input = Symbol('input');
+			const context = {
+				state: { todoList: todos,
+					editing: editing,
+					input: input },
+			};
+			const result = editTodo(context);
+
+			expect(result).toEqual(todos);
+		});
 	});
 	test('remove Todo ', () => {
+		const data = random.rndValue(todoList);
 		const context = {
-			data: { id: 'LFMUHLYR' },
-			state: { todoList: [{ id: 'MFMULLYR',
-				todo: 'Submit the Code' },
-			{ id: 'LFMUHLYR',
-				todo: 'Debug the Code' }] },
+			data: data,
+			state: { todoList },
 
 		};
 		const result = removeTodo(context);
+		const expectation = todoList.length - 1;
 
-		expect(result).toEqual([{ id: 'MFMULLYR',
-			todo: 'Submit the Code' }]);
+		expect(result.length).toEqual(expectation);
 	});
 	test('clear Completed Todos', () => {
 		const context = {
-			state: { todoList: [
-				{ completed: false },
-				{ completed: false },
-				{ completed: true },
-				{ completed: true },
-			] },
+			state: { todoList },
 		};
 		const result = clearCompleted(context);
+		const output = result.includes((ele) => ele.completed === true);
 
-		expect(result).toEqual([{ completed: false },
-			{ completed: false }]);
+		expect(output).toEqual(false);
 	});
 	test('addTaskToTodo - adds the selected task to todoList', () => {
+		const data = { id, todo };
 		const context = {
-			state: { todoList: [{ id: 'MFMULLYR',
-				todo: 'Submit the Code',
-				completed: false }] },
-			data: { id: 'LFMUHLYR',
-				todo: 'Debug the Code' },
+			state: { todoList },
+			data: data,
 
 		};
 		const result = addTaskToTodo(context);
+		const expectation = todoList.concat({ ...data, completed: false });
 
-		expect(result).toEqual([{ id: 'MFMULLYR',
-			todo: 'Submit the Code',
-			completed: false },
-		{ id: 'LFMUHLYR',
-			todo: 'Debug the Code',
-			completed: false }]);
+		expect(result).toEqual(expectation);
 	});
 });
