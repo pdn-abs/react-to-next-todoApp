@@ -1,7 +1,10 @@
 import { React } from 'react';
 
 const AddButton = (context) =>
-	<button onClick={ () => context.actions.addTodo() }>
+	<button
+		role="addButton"
+		onClick={ () => context.actions.addTodo() }
+	>
 		Add
 	</button>;
 
