@@ -213,17 +213,30 @@ describe('todoManager', () => {
 			expect(result).toEqual(todos);
 		});
 	});
-	test('remove Todo ', () => {
-		const data = random.rndValue(todoList);
-		const context = {
-			data: data,
-			state: { todoList },
+	describe('remove Todo ', () => {
+		test('remove Todo - data selected from todoList', () => {
+			const data = random.rndValue(todoList);
+			const context = {
+				data: data,
+				state: { todoList },
 
-		};
-		const result = removeTodo(context);
-		const expectation = todoList.length - 1;
+			};
+			const result = removeTodo(context);
+			const expectation = todoList.length - 1;
 
-		expect(result.length).toEqual(expectation);
+			expect(result.length).toEqual(expectation);
+		});
+		test('remove Todo - data out of todoList', () => {
+			const data = { id, todo, completed };
+			const context = {
+				data: data,
+				state: { todoList },
+
+			};
+			const result = removeTodo(context);
+
+			expect(result).toEqual(todoList);
+		});
 	});
 	test('clear Completed Todos', () => {
 		const context = {
