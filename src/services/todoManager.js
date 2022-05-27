@@ -32,6 +32,8 @@ const TodoManager = {
 
 	hasCompletedTodo: ({ state: { todoList }}) =>
 		todoList.filter((todo) => todo.completed).length > 0,
+	hasInput: ({ state: { input }}) =>
+		input === '',
 
 	filters: {
 		all: () => true,

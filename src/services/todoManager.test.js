@@ -5,7 +5,7 @@ import { rndBetween } from '@laufire/utils/lib';
 
 describe('todoManager', () => {
 	const { addTodo, toggleTodo, toggleTodoList,
-		hasNoTodos, isAllChecked, hasCompletedTodo,
+		hasNoTodos, isAllChecked, hasCompletedTodo, hasInput,
 		filters, filterTodos, editTodo, removeTodo,
 		clearCompleted, addTaskToTodo } = TodoManager;
 	const id = Symbol('id');
@@ -141,6 +141,25 @@ describe('todoManager', () => {
 
 			};
 			const result = hasCompletedTodo(context);
+
+			expect(result).toEqual(false);
+		});
+	});
+	describe('hasInput', () => {
+		test('hasInput - Input has no value', () => {
+			const context = {
+				state: { input: '' },
+			};
+			const result = hasInput(context);
+
+			expect(result).toEqual(true);
+		});
+		test('hasInput - Input contains value', () => {
+			const context = {
+				state: { input: Symbol('input') },
+
+			};
+			const result = hasInput(context);
 
 			expect(result).toEqual(false);
 		});
