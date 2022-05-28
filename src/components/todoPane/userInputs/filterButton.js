@@ -8,6 +8,7 @@ const FilterButton = (context) => {
 	return (
 		<button
 			key={ name }
+			role="filterButton"
 			disabled={ TodoManager.hasNoTodos(context) }
 			onClick={ () => context.actions.setFilter(name) }
 		>
