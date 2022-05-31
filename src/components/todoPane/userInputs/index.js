@@ -1,5 +1,5 @@
 import { React } from 'react';
-import Input from './input';
+import Input from './input.js';
 import FilterBar from './filterBar.js';
 import ActionButton from './actionButton';
 
