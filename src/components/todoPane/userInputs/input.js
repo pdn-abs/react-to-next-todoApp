@@ -14,6 +14,7 @@ const Input = (context) => {
 		<label>Enter the Task:{}
 			<input
 				id="input"
+				role="input"
 				type="text"
 				value={ state.input }
 				onChange={ (evt) =>
