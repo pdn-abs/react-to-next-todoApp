@@ -8,6 +8,7 @@ describe('RemoveButton', () => {
 		},
 		data: Symbol('data'),
 	};
+	const { actions, data } = context;
 
 	test('idle RemoveButton', () => {
 		const component = render(removeButton(context))
@@ -22,6 +23,6 @@ describe('RemoveButton', () => {
 
 		fireEvent.click(component);
 
-		expect(context.actions.removeTodo).toHaveBeenCalledWith(context.data);
+		expect(actions.removeTodo).toHaveBeenCalledWith(data);
 	});
 });
