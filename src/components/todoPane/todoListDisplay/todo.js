@@ -7,7 +7,7 @@ const Todo = (context) => {
 	const { id, todo } = data;
 
 	return (
-		<div key={ id } className="todo">
+		<div key={ id } className="todo" role="todo">
 			<span>{TodoCheckBox(context)}</span>
 			<span
 				role="setEditing"
