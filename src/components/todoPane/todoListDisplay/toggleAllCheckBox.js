@@ -8,6 +8,7 @@ const ToggleAllCheckBox = (context) => {
 
 	return (
 		<input
+			role="toggleAllCheckBox"
 			disabled={ noTodos }
 			type="checkbox"
 			checked={ selectAll }
