@@ -12,7 +12,7 @@ describe('Clear Completed', () => {
 		},
 	};
 
-	test('Displays FilterButton', () => {
+	test('Displays clearCompletedButton', () => {
 		jest.spyOn(TodoManager, 'hasCompletedTodo')
 			.mockReturnValue(true);
 
