@@ -13,7 +13,7 @@ const Todo = (context) => {
 				role="setEditing"
 				onClick={ () => actions.setEditing(data) }
 			>{todo}</span>
-			<span role="removeTodo">{RemoveButton(context)}</span>
+			<span>{RemoveButton(context)}</span>
 		</div>
 	);
 };
