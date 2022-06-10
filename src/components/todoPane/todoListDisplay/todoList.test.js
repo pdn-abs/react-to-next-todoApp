@@ -1,12 +1,10 @@
 import TodoManager from '../../../services/todoManager';
 import todoList from './todoList';
-import { React } from 'react';
-import { render } from '@testing-library/react';
 import * as Todo from './todo';
 import { range } from '@laufire/utils/collection';
-import { rndBetween, rndString } from '@laufire/utils/random';
-
-test('TodoList', () => {
+import { rndBetween } from '@laufire/utils/random';
+describe('TodoList', () => {
+	const text = Symbol('text');
 	const context = {
 		state: {
 			filter: Symbol('filter'),
@@ -16,18 +14,41 @@ test('TodoList', () => {
 
 	const filteredTodo = range(1, rndBetween()).map(Symbol);
 
-	jest.spyOn(TodoManager, 'filterTodos')
-		.mockReturnValue(filteredTodo);
-	jest.spyOn(Todo, 'default')
-		.mockImplementation(() => <div key={ rndString() } role="todo"/>);
+	test('TodoList - when todoList has todos', () => {
+		const noTodos = false;
 
-	const { getAllByRole } = render(todoList(context));
+		jest.spyOn(TodoManager, 'hasNoTodos')
+			.mockReturnValue(noTodos);
+		jest.spyOn(TodoManager, 'filterTodos')
+			.mockReturnValue(filteredTodo);
+		jest.spyOn(Todo, 'default')
+			.mockReturnValue();
 
-	expect(TodoManager.filterTodos)
-		.toHaveBeenCalledWith(context, context.state.filter);
-	filteredTodo.map((todo, index) => {
-		expect(Todo.default)
-			.toHaveBeenCalledWith({ ...context, data: todo });
-		expect(getAllByRole('todo')[index]).toBeInTheDocument();
+		const result = todoList(context);
+
+		expect(TodoManager.filterTodos)
+			.toHaveBeenCalledWith(context, context.state.filter);
+		const expectation = filteredTodo.map((todo) => {
+			expect(Todo.default)
+				.toHaveBeenCalledWith({ ...context, data: todo });
+		});
+
+		expect(result).toEqual(expectation);
+	});
+	test('TodoList - when todoList is empty', () => {
+		const noTodos = true;
+
+		jest.spyOn(TodoManager, 'hasNoTodos')
+			.mockReturnValue(noTodos);
+		jest.spyOn(TodoManager, 'filterTodos')
+			.mockReturnValue(filteredTodo);
+		jest.spyOn(Todo, 'default')
+			.mockReturnValue(text);
+
+		const result = todoList(context);
+
+		expect(TodoManager.filterTodos)
+			.toHaveBeenCalledWith(context, context.state.filter);
+		expect(result).toEqual([]);
 	});
 });
