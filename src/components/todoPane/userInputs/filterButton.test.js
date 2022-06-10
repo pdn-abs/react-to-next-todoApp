@@ -23,6 +23,7 @@ describe('filterButton', () => {
 			.getByRole('filterButton');
 
 		expect(component).toBeInTheDocument();
+		expect(component).toHaveTextContent(label);
 	});
 
 	test('Clicking FilterButton will edits the todo ', () => {

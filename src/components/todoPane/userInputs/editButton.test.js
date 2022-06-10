@@ -17,6 +17,7 @@ describe('editButton', () => {
 			.getByRole('editButton');
 
 		expect(component).toBeInTheDocument();
+		expect(component).toHaveTextContent('EDIT');
 	});
 
 	test('Clicking EditButton will edits the todo ', () => {
