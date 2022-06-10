@@ -1,12 +1,21 @@
+/* eslint-disable react/display-name */
 import { render } from '@testing-library/react';
+import React from 'react';
+
+jest.mock('./components/todoPane', () => () => <div role="todoPane"/>);
+jest.mock('./components/taskPane', () => () => <div role="taskPane"/>);
 
 import App from './App';
-import context from './core/context';
+import TaskManager from './services/taskManager';
+import Ticker from './services/ticker';
 
-describe('App', () => {
-	test('renders the component appropriately', () => {
-		const component = render(App(context)).getByRole('App');
+test('renders learn react link', () => {
+	jest.spyOn(React, 'useEffect');
+	jest.spyOn(Ticker, 'start').mockReturnValue();
+	jest.spyOn(TaskManager, 'init').mockReturnValue();
 
-		expect(component).toBeInTheDocument();
-	});
+	const { getByRole } = render(<App/>);
+
+	expect(getByRole('todoPane')).toBeInTheDocument();
+	expect(getByRole('taskPane')).toBeInTheDocument();
 });
