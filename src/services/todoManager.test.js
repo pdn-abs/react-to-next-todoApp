@@ -129,7 +129,8 @@ describe('todoManager', () => {
 	});
 	describe('has Completed Todos ', () => {
 		test('has Completed Todos - One Todo Selected', () => {
-			const context = { state: { todoList }};
+			const context = { state: { todoList: [{ completed: true },
+				{ completed: false }] }};
 			const result = hasCompletedTodo(context);
 
 			expect(result).toEqual(true);

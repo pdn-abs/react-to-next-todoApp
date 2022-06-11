@@ -8,7 +8,7 @@ describe('TodoList', () => {
 	const context = {
 		state: {
 			filter: Symbol('filter'),
-			todoList: Symbol('todo'),
+			todoList: Symbol('todoList'),
 		},
 	};
 

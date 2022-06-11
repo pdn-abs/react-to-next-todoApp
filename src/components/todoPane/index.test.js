@@ -3,10 +3,9 @@ import TodoPane from './index';
 import * as TodoListDisplay from './todoListDisplay';
 import * as UserInputs from './userInputs';
 import { render } from '@testing-library/react';
+import context from '../../core/context';
 
 test('TodoPane', () => {
-	const context = Symbol('context');
-
 	jest.spyOn(UserInputs, 'default')
 		.mockReturnValue(<div role="userInputs"/>);
 

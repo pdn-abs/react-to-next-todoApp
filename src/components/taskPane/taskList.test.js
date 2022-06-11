@@ -13,7 +13,7 @@ test('TaskList- lists the tasks', () => {
 	};
 
 	jest.spyOn(Task, 'default')
-		.mockReturnValue(<div key={ rndString() } role="Task"/>);
+		.mockImplementation(() => <div key={ rndString() } role="Task"/>);
 
 	const { getAllByRole } = render(TaskList(context));
 
