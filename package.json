@@ -5,19 +5,16 @@
   "dependencies": {
     "@laufire/resist": "^0.0.5",
     "@laufire/utils": "^2.9.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
+    "next": "^13.4.7",
+    "react": "^18.0.2",
+    "react-dom": "^18.0.2",
+    "sass": "^1.63.6",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test ",
-    "eject": "react-scripts eject",
-    "test-dev": "react-scripts test --watchAll=false",
-    "test-ci": "npm run test-dev -- --coverage",
-    "lint": "npx eslint ."
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "eslintConfig": {
     "extends": [
